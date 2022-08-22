@@ -1,0 +1,22 @@
+{
+  "name": "wait-times",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.2",
+    "themeparks": "^5.1.53"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
