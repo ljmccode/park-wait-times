@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cron from 'node-cron';
 import { connectDB } from './db.js';
-import { getWaitTimeData } from './controllers/getWaitData.js';
+import { getWaitTimeData } from './getAPIdata/getWaitData.js';
 
 dotenv.config();
 const app = express();

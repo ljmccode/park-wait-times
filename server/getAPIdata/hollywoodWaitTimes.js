@@ -1,4 +1,4 @@
-import HollywoodWaitTime from '../models/HollywoodStudios.js';
+import HollywoodWaitTime from '../models/hollywoodStudios.mongo.js';
 import { filterRides, mapRides } from '../utils/rideHelpers.js';
 
 import Themeparks from 'themeparks';

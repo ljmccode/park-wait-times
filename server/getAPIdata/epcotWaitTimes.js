@@ -1,4 +1,4 @@
-import EpcotWaitTime from '../models/Epcot.js';
+import EpcotWaitTime from '../models/epcot.mongo.js';
 import { filterRides, mapRides } from '../utils/rideHelpers.js';
 
 import Themeparks from 'themeparks';
