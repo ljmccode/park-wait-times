@@ -7,7 +7,7 @@ const HollywoodStudios = new Themeparks.Parks.WaltDisneyWorldHollywoodStudios();
 
 const pushToDatabase = (rides) => {
   rides.forEach((ride) => {
-    HollywoodWaitTime.create(ride);
+    HollywoodWaitTime.create({ ...ride, date: new Date() });
   });
 };
 

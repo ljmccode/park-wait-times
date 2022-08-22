@@ -7,7 +7,7 @@ const Epcot = new Themeparks.Parks.WaltDisneyWorldEpcot();
 
 const pushToDatabase = (rides) => {
   rides.forEach((ride) => {
-    EpcotWaitTime.create(ride);
+    EpcotWaitTime.create({ ...ride, date: new Date() });
   });
 };
 
