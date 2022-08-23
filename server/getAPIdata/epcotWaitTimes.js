@@ -9,7 +9,7 @@ const Epcot = new Themeparks.Parks.WaltDisneyWorldEpcot();
 const pushToDatabase = (rides) => {
   rides.forEach((ride) => {
     const currentDate = new Date();
-    const time = moment(currentDate).tz('America/New_York').format('LT');
+    const time = moment(currentDate).tz('America/New_York').format('HH:mm');
     const date = moment(currentDate).tz('America/New_York').format('L');
     EpcotWaitTime.create({ ...ride, date, time });
   });
