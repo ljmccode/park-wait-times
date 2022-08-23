@@ -1,7 +1,7 @@
 export const filterRides = (rideTimes) => {
   const rides = [];
   rideTimes
-    .filter((ride) => ride.meta.type === 'ATTRACTION')
+    .filter((ride) => ride.meta.type === 'ATTRACTION' && ride.waitTime !== null)
     .forEach((ride) => {
       rides.push([ride.name, ride.waitTime, ride.status]);
     });
