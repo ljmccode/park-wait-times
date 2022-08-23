@@ -1,8 +1,16 @@
+import { getAllEpcotRides, getEpcotRide } from '../models/epcot.model.js';
+
 export const httpGetAllEpcotRides = async (req, res) => {
-  return res.status(200).json({ msg: 'all clear' });
+  const rides = await getAllEpcotRides();
+  return res.status(200).json(rides);
 };
 
 export const httpGetEpcotRide = async (req, res) => {
   const { ride } = req.params;
-  return res.status(200).json(`Ride info for ${ride}`);
+  const rideInfo = await getEpcotRide(decodeURIComponent(ride));
+  const condensedRideInfo = rideInfo.map((ride) => {
+    const { name, waitTime, status, date } = ride;
+    return { name, waitTime, status, date };
+  });
+  return res.status(200).json(condensedRideInfo);
 };
