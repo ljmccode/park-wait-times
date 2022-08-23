@@ -1,11 +1,10 @@
-import HollywoodWaitTime from './hollywoodStudios.model';
+import mongoose from 'mongoose';
+import HollywoodWaitTime from './hollywoodStudios.mongo.js';
 
-// get all HS ride wait times for the day
 export const getAllHSRides = async () => {
-  console.log('All Hollywood Studios Rides');
+  return await HollywoodWaitTime.find();
 };
 
-// get all specific HS ride wait times for the day
-export const getHSRide = async (rideId) => {
-  console.log(`Hollywood ride with id of ${rideId}`);
+export const getHSRide = async (rideName) => {
+  return await HollywoodWaitTime.find({ name: rideName });
 };
