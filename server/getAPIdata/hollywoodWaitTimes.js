@@ -1,3 +1,4 @@
+import moment from 'moment';
 import HollywoodWaitTime from '../models/hollywoodStudios.mongo.js';
 import { filterRides, mapRides } from '../utils/rideHelpers.js';
 
@@ -7,7 +8,10 @@ const HollywoodStudios = new Themeparks.Parks.WaltDisneyWorldHollywoodStudios();
 
 const pushToDatabase = (rides) => {
   rides.forEach((ride) => {
-    HollywoodWaitTime.create({ ...ride, date: new Date() });
+    const currentDate = new Date();
+    const time = moment(currentDate).tz('America/New_York').format('HH:mm');
+    const date = moment(currentDate).tz('America/New_York').format('L');
+    HollywoodWaitTime.create({ ...ride, date, time });
   });
 };
 
