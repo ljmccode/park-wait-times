@@ -8,10 +8,12 @@ export const getWaitTimeData = () => {
     moment(currentTime).tz('America/New_York').format('HH')
   );
   if (formattedTime < 7) {
-    console.log('parks are closed');
+    console.log(
+      `parks are closed at ${new Date().toLocaleTimeString()} Central Time`
+    );
     return;
   }
   getHollywoodWaitTimes();
   getEpcotWaitTimes();
-  console.log('data pulled!');
+  console.log(`data pulled at ${new Date().toLocaleTimeString()} Central Time`);
 };
