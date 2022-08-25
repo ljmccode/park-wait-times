@@ -39,6 +39,6 @@ const WaitTimeRow = styled.div`
   }
 
   @media screen and (min-width: 992px) {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 `;

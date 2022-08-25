@@ -27,7 +27,7 @@ const Wrapper = styled.div`
     background: var(--grey-200);
   }
   .park-info {
-    width: 80vw;
+    width: 85vw;
     margin: 0 auto;
     padding: 2rem 0;
     min-height: 100vh;
@@ -36,5 +36,12 @@ const Wrapper = styled.div`
   .select-input {
     font-weight: bold;
     font-size: 1rem;
+  }
+
+  @media screen and (min-width: 992px) {
+    .park-info {
+      width: 80vw;
+      max-width: 1120px;
+    }
   }
 `;

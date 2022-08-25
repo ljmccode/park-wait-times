@@ -5,7 +5,6 @@ import { openHours } from '../utils/hours';
 const PageHeader = () => {
   return (
     <Header>
-      <span className='park'>Hollywood Studios</span>
       <Select
         name={'time'}
         value={'07:00 AM'}
@@ -29,14 +28,10 @@ const Header = styled.div`
   margin: 0 auto;
   padding-top: 2rem;
 
-  .park {
-    color: var(--grey-700);
-    font-size: 1.5rem;
-  }
   .filter-btn {
     border-radius: 1rem;
     padding: 0.5rem 2rem;
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   .select-input {
@@ -52,5 +47,13 @@ const Header = styled.div`
   }
   .select-input:hover {
     box-shadow: var(--shadow-3);
+  }
+
+  @media screen and (min-width: 668px) {
+    width: 80vw;
+    max-width: 1120px;
+    .filter-btn {
+      font-size: 1.25rem;
+    }
   }
 `;
