@@ -23,6 +23,8 @@ const Nav = styled.nav`
   justify-content: center;
   box-shadow: var(--shadow-1);
   background-color: var(--white);
+  position: relative;
+  z-index: 20;
 
   .nav-center {
     width: 90%;
