@@ -1,13 +1,17 @@
-import Navbar from './components/Navbar';
-import Parks from './components/Parks';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SharedLayout from './pages/SharedLayout';
+import WaitByTime from './pages/WaitByTime';
 import './App.css';
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Parks />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<SharedLayout />}>
+          <Route path='/' element={<WaitByTime />}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

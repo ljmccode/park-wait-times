@@ -1,0 +1,128 @@
+[
+  {
+    "_id": "63050790e87ba5b9c499c770",
+    "name": "Advanced Training Lab",
+    "waitTime": 0,
+    "status": "Closed",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c771",
+    "name": "Frozen Ever After",
+    "waitTime": 75,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c775",
+    "name": "Impressions de France",
+    "waitTime": 0,
+    "status": "Closed",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c774",
+    "name": "Gran Fiesta Tour Starring The Three Caballeros",
+    "waitTime": 20,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c776",
+    "name": "Spaceship Earth",
+    "waitTime": 20,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c777",
+    "name": "The Seas with Nemo & Friends",
+    "waitTime": 15,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c779",
+    "name": "Test Track",
+    "waitTime": 75,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c778",
+    "name": "Turtle Talk With Crush",
+    "waitTime": 15,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c77b",
+    "name": "Journey Into Imagination With Figment",
+    "waitTime": 0,
+    "status": "Down",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c77a",
+    "name": "Mission: SPACE",
+    "waitTime": 40,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c77c",
+    "name": "Canada Far and Wide in Circle-Vision 360",
+    "waitTime": 0,
+    "status": "Closed",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c77d",
+    "name": "Remy's Ratatouille Adventure",
+    "waitTime": 55,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c773",
+    "name": "Soarin' Around the World",
+    "waitTime": 60,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  },
+  {
+    "_id": "63050790e87ba5b9c499c772",
+    "name": "Living with the Land",
+    "waitTime": 20,
+    "status": "Operating",
+    "date": "08/23/2022",
+    "time": "13:00",
+    "__v": 0
+  }
+]
