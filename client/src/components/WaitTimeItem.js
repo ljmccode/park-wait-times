@@ -18,12 +18,15 @@ const WaitTimeRow = styled.div`
   display: flex;
   min-height: 50px;
   border-bottom: 1px solid var(--primary-300);
-  background: var(--grey-100);
+  background: var(--white);
   padding: 15px 0;
   align-items: center;
   justify-content: center;
   text-align: center;
   font-size: 0.8rem;
+  :last-child {
+    border-bottom: 2px solid var(--primary-600);
+  }
 
   .name {
     width: 50%;
@@ -36,6 +39,6 @@ const WaitTimeRow = styled.div`
   }
 
   @media screen and (min-width: 992px) {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 `;
