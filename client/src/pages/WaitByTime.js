@@ -26,9 +26,9 @@ const WaitByTime = () => {
 export default WaitByTime;
 
 const WaitContainer = styled.div`
-  border-top: 1px solid var(--primary-400);
-  border-left: 1px solid var(--primary-400);
-  border-right: 1px solid var(--primary-400);
+  border-top: 2px solid var(--primary-600);
+  border-left: 2px solid var(--primary-600);
+  border-right: 2px solid var(--primary-600);
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-4);
   max-height: 800px;
@@ -38,7 +38,9 @@ const WaitContainer = styled.div`
   .wait-time-header {
     position: sticky;
     top: 0;
-    background: var(--primary-300);
+    background: var(--primary-600);
+    color: var(--white);
+    font-weight: bold;
     width: 100%;
     display: flex;
     min-height: 60px;

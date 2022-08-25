@@ -24,7 +24,7 @@ export default SharedLayout;
 const Wrapper = styled.div`
   height: 100%;
   .park-page {
-    background: var(--green-300);
+    background: var(--grey-200);
   }
   .park-info {
     width: 80vw;
