@@ -1,9 +1,21 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getHSTimes } from '../features/waitTimes/waitTimesSlice';
 import styled from 'styled-components';
-import sampleData from '../sample-data.json';
 import WaitTimeItem from '../components/WaitTimeItem';
+import NoData from '../components/NoData';
 
 const WaitByTime = () => {
-  return (
+  const dispatch = useDispatch();
+  const { waitTimes, time } = useSelector((store) => store.waitTimes);
+
+  useEffect(() => {
+    dispatch(getHSTimes());
+  }, [time]);
+
+  return waitTimes.length === 0 ? (
+    <NoData time={time} />
+  ) : (
     <WaitContainer>
       <div className='wait-time-header'>
         <div className='name-block'>
@@ -16,7 +28,7 @@ const WaitByTime = () => {
           <span>Status</span>
         </div>
       </div>
-      {sampleData.map((ride) => (
+      {waitTimes.map((ride) => (
         <WaitTimeItem key={ride._id} ride={ride} />
       ))}
     </WaitContainer>

@@ -1,15 +1,42 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Select from './Select';
 import { openHours } from '../utils/hours';
+import { handleChange } from '../features/waitTimes/waitTimesSlice';
+import {
+  updateTime,
+  updateMilitaryTime,
+} from '../features/waitTimes/waitTimesSlice';
+import { getFloridaTime, convertMilitary } from '../utils/hours';
 
 const PageHeader = () => {
+  const dispatch = useDispatch();
+  const { time } = useSelector((store) => store.waitTimes);
+
+  const handleTimeInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    dispatch(handleChange({ name, value }));
+  };
+
+  useEffect(() => {
+    const currentFloridaTime = getFloridaTime();
+    dispatch(updateTime(currentFloridaTime));
+  }, []);
+
+  useEffect(() => {
+    const militaryTime = convertMilitary(time);
+    dispatch(updateMilitaryTime(militaryTime));
+  }, [time]);
+
   return (
     <Header>
       <Select
         name={'time'}
-        value={'07:00 AM'}
+        value={time}
+        handleChange={handleTimeInput}
         options={openHours}
-        onChange='handleChange'
       />
       <button type='button' className='btn btn-hipster filter-btn'>
         filter
