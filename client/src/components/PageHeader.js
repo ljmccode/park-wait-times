@@ -4,21 +4,15 @@ import styled from 'styled-components';
 import Select from './Select';
 import { openHours } from '../utils/hours';
 import { handleChange } from '../features/waitTimes/waitTimesSlice';
-import { updateTime } from '../features/waitTimes/waitTimesSlice';
+import {
+  updateTime,
+  updateMilitaryTime,
+} from '../features/waitTimes/waitTimesSlice';
+import { getFloridaTime, convertMilitary } from '../utils/hours';
 
 const PageHeader = () => {
   const dispatch = useDispatch();
   const { time } = useSelector((store) => store.waitTimes);
-
-  const getFloridaTime = () => {
-    const currentDate = new Date();
-    const floridaTime = currentDate.toLocaleString('en-US', {
-      timeZone: 'America/New_York',
-      hour: '2-digit',
-    });
-    const [hour, amPm] = floridaTime.split(' ');
-    return `${hour}:00 ${amPm}`;
-  };
 
   const handleTimeInput = (e) => {
     const name = e.target.name;
@@ -30,6 +24,11 @@ const PageHeader = () => {
     const currentFloridaTime = getFloridaTime();
     dispatch(updateTime(currentFloridaTime));
   }, []);
+
+  useEffect(() => {
+    const militaryTime = convertMilitary(time);
+    dispatch(updateMilitaryTime(militaryTime));
+  }, [time]);
 
   return (
     <Header>
