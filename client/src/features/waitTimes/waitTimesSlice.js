@@ -42,8 +42,10 @@ const waitTimesSlice = createSlice({
       state[name] = value;
     },
     updateTime: (state, { payload }) => {
-      console.log(state.time);
-      state.time = payload;
+      state.time = payload.time;
+    },
+    updateMilitaryTime: (state, { payload }) => {
+      state.militaryTime = payload;
     },
   },
   extraReducers: {
@@ -60,6 +62,7 @@ const waitTimesSlice = createSlice({
   },
 });
 
-export const { handleChange, updateTime } = waitTimesSlice.actions;
+export const { handleChange, updateTime, updateMilitaryTime } =
+  waitTimesSlice.actions;
 
 export default waitTimesSlice.reducer;
