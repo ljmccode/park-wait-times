@@ -37,6 +37,15 @@ export const getHSTimes = createAsyncThunk(
 const waitTimesSlice = createSlice({
   name: 'waitTimes',
   initialState,
+  reducers: {
+    handleChange: (state, { payload: { name, value } }) => {
+      state[name] = value;
+    },
+    updateTime: (state, { payload }) => {
+      console.log(state.time);
+      state.time = payload;
+    },
+  },
   extraReducers: {
     [getHSTimes.pending]: (state) => {
       state.isLoading = true;
@@ -50,5 +59,7 @@ const waitTimesSlice = createSlice({
     },
   },
 });
+
+export const { handleChange, updateTime } = waitTimesSlice.actions;
 
 export default waitTimesSlice.reducer;
