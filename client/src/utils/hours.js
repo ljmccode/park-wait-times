@@ -39,3 +39,23 @@ export const openHours = [
   '11:00 PM',
   '12:00 AM',
 ];
+
+export const getFloridaTime = () => {
+  const currentDate = new Date();
+  const floridaTime = currentDate.toLocaleString('en-US', {
+    timeZone: 'America/New_York',
+    hour: '2-digit',
+  });
+
+  const [hour, amPm] = floridaTime.split(' ');
+  return { time: `${hour}:00 ${amPm}` };
+};
+
+export const convertMilitary = (time) => {
+  const [currentTime, amPm] = time.split(' ');
+  const hour = Number(currentTime.slice(0, 2));
+  if (amPm === 'PM') {
+    return `${hour + 12}:00`;
+  }
+  return `${hour}:00`;
+};
