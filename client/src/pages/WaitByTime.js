@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getHSTimes } from '../features/waitTimes/waitTimesSlice';
 import styled from 'styled-components';
 import WaitTimeItem from '../components/WaitTimeItem';
+import NoData from '../components/NoData';
 
 const WaitByTime = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,9 @@ const WaitByTime = () => {
     dispatch(getHSTimes());
   }, [time]);
 
-  return (
+  return waitTimes.length === 0 ? (
+    <NoData time={time} />
+  ) : (
     <WaitContainer>
       <div className='wait-time-header'>
         <div className='name-block'>
