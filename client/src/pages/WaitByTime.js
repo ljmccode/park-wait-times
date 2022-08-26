@@ -6,11 +6,11 @@ import WaitTimeItem from '../components/WaitTimeItem';
 
 const WaitByTime = () => {
   const dispatch = useDispatch();
-  const { waitTimes } = useSelector((store) => store.waitTimes);
+  const { waitTimes, time } = useSelector((store) => store.waitTimes);
 
   useEffect(() => {
     dispatch(getHSTimes());
-  }, []);
+  }, [time]);
 
   return (
     <WaitContainer>
