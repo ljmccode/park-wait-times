@@ -1,15 +1,43 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Select from './Select';
 import { openHours } from '../utils/hours';
+import { handleChange } from '../features/waitTimes/waitTimesSlice';
+import { updateTime } from '../features/waitTimes/waitTimesSlice';
 
 const PageHeader = () => {
+  const dispatch = useDispatch();
+  const { time } = useSelector((store) => store.waitTimes);
+
+  const getFloridaTime = () => {
+    const currentDate = new Date();
+    const floridaTime = currentDate.toLocaleString('en-US', {
+      timeZone: 'America/New_York',
+      hour: '2-digit',
+    });
+    const [hour, amPm] = floridaTime.split(' ');
+    return `${hour}:00 ${amPm}`;
+  };
+
+  const handleTimeInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    dispatch(handleChange({ name, value }));
+  };
+
+  useEffect(() => {
+    const currentFloridaTime = getFloridaTime();
+    dispatch(updateTime(currentFloridaTime));
+  }, []);
+
   return (
     <Header>
       <Select
         name={'time'}
-        value={'07:00 AM'}
+        value={time}
+        handleChange={handleTimeInput}
         options={openHours}
-        onChange='handleChange'
       />
       <button type='button' className='btn btn-hipster filter-btn'>
         filter
