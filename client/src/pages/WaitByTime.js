@@ -12,7 +12,6 @@ const WaitByTime = () => {
     (store) => store.waitTimes
   );
   const { park } = useParams();
-  console.log(park);
 
   useEffect(() => {
     dispatch(getParkTimes());
