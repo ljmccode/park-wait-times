@@ -15,16 +15,17 @@ const initialFilterState = {
 };
 
 const initialState = {
+  currentPark: 'hollywood-studios',
   isLoading: false,
   waitTimes: [],
   ...initialFilterState,
 };
 
-export const getHSTimes = createAsyncThunk(
-  'waitTimes/getHSTimes',
+export const getParkTimes = createAsyncThunk(
+  'waitTimes/getParkTimes',
   async (_, thunkAPI) => {
-    const { militaryTime, date } = thunkAPI.getState().waitTimes;
-    let url = `/api/v1/hollywood-studios?time=${militaryTime}&date=${date}`;
+    const { militaryTime, date, currentPark } = thunkAPI.getState().waitTimes;
+    let url = `/api/v1/${currentPark}?time=${militaryTime}&date=${date}`;
     try {
       const { data } = await axios(url);
       return data;
@@ -47,22 +48,25 @@ const waitTimesSlice = createSlice({
     updateMilitaryTime: (state, { payload }) => {
       state.militaryTime = payload;
     },
+    updatePark: (state, { payload }) => {
+      state.currentPark = payload;
+    },
   },
   extraReducers: {
-    [getHSTimes.pending]: (state) => {
+    [getParkTimes.pending]: (state) => {
       state.isLoading = true;
     },
-    [getHSTimes.fulfilled]: (state, { payload }) => {
+    [getParkTimes.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.waitTimes = payload;
     },
-    [getHSTimes.rejected]: (state) => {
+    [getParkTimes.rejected]: (state) => {
       state.isLoading = false;
     },
   },
 });
 
-export const { handleChange, updateTime, updateMilitaryTime } =
+export const { handleChange, updateTime, updateMilitaryTime, updatePark } =
   waitTimesSlice.actions;
 
 export default waitTimesSlice.reducer;
