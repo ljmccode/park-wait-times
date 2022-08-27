@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<SharedLayout />}>
-          <Route path='/' element={<WaitByTime />}></Route>
+          <Route path=':park' element={<WaitByTime />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
