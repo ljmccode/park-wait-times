@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getParkTimes, updatePark } from '../features/waitTimes/waitTimesSlice';
-import styled from 'styled-components';
-import WaitTimeItem from '../components/WaitTimeItem';
-import NoData from '../components/NoData';
 import { useParams } from 'react-router-dom';
+import { getParkTimes, updatePark } from '../features/waitTimes/waitTimesSlice';
+import WaitTimeItem from '../components/WaitTimeItem';
+import WaitTimeHeader from '../components/WaitTimeHeader';
+import NoData from '../components/NoData';
+import styled from 'styled-components';
 
 const WaitByTime = () => {
   const dispatch = useDispatch();
-  const { waitTimes, time, currentPark } = useSelector(
+  const { waitTimes, time, currentPark, view } = useSelector(
     (store) => store.waitTimes
   );
   const { park } = useParams();
@@ -25,17 +26,7 @@ const WaitByTime = () => {
     <NoData time={time} />
   ) : (
     <WaitContainer>
-      <div className='wait-time-header'>
-        <div className='name-block'>
-          <span>Name</span>
-        </div>
-        <div className='wait-block'>
-          <span>Wait Time</span>
-        </div>
-        <div className='status-block'>
-          <span>Status</span>
-        </div>
-      </div>
+      <WaitTimeHeader view={view} />
       {waitTimes.map((ride) => (
         <WaitTimeItem key={ride._id} ride={ride} />
       ))}
