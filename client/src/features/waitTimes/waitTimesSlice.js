@@ -68,6 +68,9 @@ const waitTimesSlice = createSlice({
     updatePark: (state, { payload }) => {
       state.currentPark = payload;
     },
+    updateView: (state, { payload }) => {
+      state.view = payload;
+    },
   },
   extraReducers: {
     [getParkTimes.pending]: (state) => {
@@ -94,7 +97,12 @@ const waitTimesSlice = createSlice({
   },
 });
 
-export const { handleChange, updateTime, updateMilitaryTime, updatePark } =
-  waitTimesSlice.actions;
+export const {
+  handleChange,
+  updateTime,
+  updateMilitaryTime,
+  updatePark,
+  updateView,
+} = waitTimesSlice.actions;
 
 export default waitTimesSlice.reducer;
