@@ -1,9 +1,12 @@
+import { useSelector } from 'react-redux';
 import epcotLogo from '../assets/images/epcot-logo-grey.png';
 import { Link } from 'react-router-dom';
 import hsLogo from '../assets/images/hs-logo-grey.png';
 import styled from 'styled-components';
 
 const Parks = () => {
+  const { currentPark } = useSelector((store) => store.waitTimes);
+
   return (
     <ParksContainer>
       <div className='parks-center'>
@@ -13,11 +16,13 @@ const Parks = () => {
             alt='Hollywood Studios Logo'
             className='park-icon'
           />
-          <p className='active'>Hollywood Studios</p>
+          <p className={currentPark === 'hollywood-studios' ? 'active' : ''}>
+            Hollywood Studios
+          </p>
         </Link>
         <Link to='epcot' className='park-logo-container'>
           <img src={epcotLogo} alt='Epcot Logo' className='park-icon' />
-          <p>Epcot</p>
+          <p className={currentPark === 'epcot' ? 'active' : ''}>Epcot</p>
         </Link>
       </div>
     </ParksContainer>
