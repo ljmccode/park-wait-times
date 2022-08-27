@@ -1,21 +1,37 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import WaitTimeItem from './WaitTimeItem';
 import WaitTimeHeader from './WaitTimeHeader';
 import NoData from './NoData';
+import { updateView } from '../features/waitTimes/waitTimesSlice';
 
 const WaitByRide = () => {
+  const dispatch = useDispatch();
   const { waitTimes, time, view } = useSelector((store) => store.waitTimes);
 
   return waitTimes.length === 0 ? (
-    <NoData time={time} />
+    <>
+      <NoData time={time} />
+      <button type='button'>Back to Park</button>
+    </>
   ) : (
-    <WaitContainer>
-      <WaitTimeHeader view={view} />
-      {waitTimes.map((ride) => (
-        <WaitTimeItem key={ride._id} ride={ride} />
-      ))}
-    </WaitContainer>
+    <>
+      <WaitContainer>
+        <WaitTimeHeader view={view} />
+        {waitTimes.map((ride) => (
+          <WaitTimeItem key={ride._id} ride={ride} />
+        ))}
+      </WaitContainer>
+      <ReturnButton>
+        <button
+          type='button'
+          className='btn-hipster btn return-btn'
+          onClick={() => dispatch(updateView('time view'))}
+        >
+          Back to Park
+        </button>
+      </ReturnButton>
+    </>
   );
 };
 
@@ -60,5 +76,17 @@ const WaitContainer = styled.div`
     .wait-time-header {
       font-size: 1.25rem;
     }
+  }
+`;
+
+const ReturnButton = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  .return-btn {
+    border-radius: 1rem;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    margin: 0 auto;
   }
 `;
