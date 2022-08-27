@@ -1,10 +1,28 @@
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { viewRideInfo } from '../features/waitTimes/waitTimesSlice';
+import { convertRegularTime } from '../utils/hours';
 import styled from 'styled-components';
 
 const WaitTimeItem = ({ ride }) => {
-  const { name, waitTime, status } = ride;
+  const dispatch = useDispatch();
+  const { view } = useSelector((store) => store.waitTimes);
+  const { name, waitTime, status, time } = ride;
+  const time12hr = convertRegularTime(time);
   return (
     <WaitTimeRow>
-      <span className='name'>{name}</span>
+      {view === 'time view' ? (
+        <Link
+          to='#'
+          className='name'
+          onClick={() => dispatch(viewRideInfo(name))}
+        >
+          <span>{name}</span>
+        </Link>
+      ) : (
+        <span className='time'>{time12hr}</span>
+      )}
       <span className='wait-time'>{waitTime}</span>
       <span className='status'>{status}</span>
     </WaitTimeRow>
@@ -26,6 +44,10 @@ const WaitTimeRow = styled.div`
   font-size: 0.8rem;
   :last-child {
     border-bottom: 2px solid var(--primary-600);
+  }
+
+  .time {
+    width: 40%;
   }
 
   .name {

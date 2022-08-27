@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SharedLayout from './pages/SharedLayout';
-import WaitByTime from './pages/WaitByTime';
+import WaitTimeInfo from './pages/WaitTimeInfo';
 import './App.css';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<SharedLayout />}>
-          <Route path=':park' element={<WaitByTime />}></Route>
+          <Route path=':park' element={<WaitTimeInfo />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

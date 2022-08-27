@@ -18,13 +18,13 @@ export const httpGetAllRides = async (req, res) => {
 
 export const httpGetRide = async (req, res) => {
   const { park, ride } = req.params;
+  const { date } = req.query;
   if (park === 'epcot') {
-    console.log('this is epcot');
-    const rideInfo = await getEpcotRide(decodeURIComponent(ride));
+    const rideInfo = await getEpcotRide(decodeURIComponent(ride), date);
     return res.status(200).json(rideInfo);
   }
   if (park === 'hollywood-studios') {
-    const rideInfo = await getHSRide(decodeURIComponent(ride));
+    const rideInfo = await getHSRide(decodeURIComponent(ride), date);
     return res.status(200).json(rideInfo);
   }
 };
