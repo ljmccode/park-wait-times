@@ -59,3 +59,12 @@ export const convertMilitary = (time) => {
   }
   return `${hour}:00`;
 };
+
+export const convertRegularTime = (time) => {
+  let hours = Number(time.split(':')[0]);
+  if (hours > 12) {
+    hours = hours - 12;
+    return `${hours}:00 PM`;
+  }
+  return `${hours}:00 AM`;
+};
