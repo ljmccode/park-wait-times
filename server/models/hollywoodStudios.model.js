@@ -6,5 +6,5 @@ export const getAllHSRides = async (time, date) => {
 };
 
 export const getHSRide = async (rideName) => {
-  return await HollywodWaitTime.find({ name: rideName });
+  return await HollywoodWaitTime.find({ name: rideName });
 };

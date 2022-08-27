@@ -5,8 +5,7 @@ import cors from 'cors';
 
 import { connectDB } from './db.js';
 import { getWaitTimeData } from './getAPIdata/getWaitData.js';
-import epcotRouter from './routes/epcot.js';
-import hollywoodRouter from './routes/hollywood.js';
+import parkRouter from './routes/parkWaitTime.js';
 
 dotenv.config();
 const app = express();
@@ -15,14 +14,12 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/v1/epcot', epcotRouter);
-app.use('/api/v1/hollywood-studios', hollywoodRouter);
+app.use('/api/v1', parkRouter);
 
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
     await cron.schedule('0 * * * *', () => getWaitTimeData());
-    // getWaitTimeData();
     app.listen(port, () => {
       console.log(`Now listening on port ${port}`);
     });

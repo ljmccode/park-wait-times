@@ -1,17 +1,25 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getHSTimes } from '../features/waitTimes/waitTimesSlice';
+import { getParkTimes, updatePark } from '../features/waitTimes/waitTimesSlice';
 import styled from 'styled-components';
 import WaitTimeItem from '../components/WaitTimeItem';
 import NoData from '../components/NoData';
+import { useParams } from 'react-router-dom';
 
 const WaitByTime = () => {
   const dispatch = useDispatch();
-  const { waitTimes, time } = useSelector((store) => store.waitTimes);
+  const { waitTimes, time, currentPark } = useSelector(
+    (store) => store.waitTimes
+  );
+  const { park } = useParams();
 
   useEffect(() => {
-    dispatch(getHSTimes());
-  }, [time]);
+    dispatch(getParkTimes());
+  }, [time, currentPark]);
+
+  useEffect(() => {
+    dispatch(updatePark(park));
+  }, [park]);
 
   return waitTimes.length === 0 ? (
     <NoData time={time} />
