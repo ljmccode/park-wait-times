@@ -1,10 +1,16 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import TimeDropdown from './TimeDropdown';
 
 const PageHeader = () => {
+  const { view, currentRide } = useSelector((store) => store.waitTimes);
   return (
     <Header>
-      <TimeDropdown />
+      {view === 'time view' ? (
+        <TimeDropdown />
+      ) : (
+        <h3 className='ride-name'>{currentRide}</h3>
+      )}
       <button type='button' className='btn btn-hipster filter-btn'>
         filter
       </button>
@@ -21,6 +27,11 @@ const Header = styled.div`
   justify-content: space-between;
   margin: 0 auto;
   padding-top: 2rem;
+
+  .ride-name {
+    margin-bottom: 0;
+    /* color: #a77a7a; */
+  }
 
   .filter-btn {
     border-radius: 1rem;
