@@ -1,11 +1,26 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import TimeDropdown from './TimeDropdown';
+import DatePickerComponent from './DatePicker';
+import {
+  getParkTimes,
+  viewRideInfo,
+} from '../features/waitTimes/waitTimesSlice';
 
 const PageHeader = () => {
-  const { view, currentRide } = useSelector((store) => store.waitTimes);
+  const dispatch = useDispatch();
+  const { view, currentRide, date } = useSelector((store) => store.waitTimes);
+
+  useEffect(() => {
+    view === 'time view'
+      ? dispatch(getParkTimes())
+      : dispatch(viewRideInfo(currentRide));
+  }, [date]);
+
   return (
     <Header>
+      <DatePickerComponent />
       {view === 'time view' ? (
         <TimeDropdown />
       ) : (
@@ -22,9 +37,9 @@ export default PageHeader;
 
 const Header = styled.div`
   width: 80vw;
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: space-between;
+  grid-template-columns: 1fr 1fr auto;
   margin: 0 auto;
   padding-top: 2rem;
 
