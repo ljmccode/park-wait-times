@@ -54,8 +54,14 @@ export const getFloridaTime = () => {
 export const convertMilitary = (time) => {
   const [currentTime, amPm] = time.split(' ');
   const hour = Number(currentTime.slice(0, 2));
-  if (amPm === 'PM') {
+  if (amPm === 'PM' && hour !== 12) {
     return `${hour + 12}:00`;
+  }
+  if (time === '12:00 PM') {
+    return '12:00';
+  }
+  if (time === '12:00 AM') {
+    return '00:00';
   }
   return `${hour}:00`;
 };
