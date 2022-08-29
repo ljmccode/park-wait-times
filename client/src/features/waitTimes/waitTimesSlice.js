@@ -16,6 +16,7 @@ const initialFilterState = {
 
 const initialState = {
   currentPark: 'hollywood-studios',
+  currentRide: '',
   view: 'time view',
   isLoading: false,
   waitTimes: [],
@@ -42,7 +43,6 @@ export const viewRideInfo = createAsyncThunk(
     const { date, currentPark } = thunkAPI.getState().waitTimes;
     const urlName = encodeURIComponent(name);
     let url = `/api/v1/${currentPark}/${urlName}?date=${date}`;
-    console.log(url);
     try {
       const { data } = await axios(url);
       return data;
@@ -71,6 +71,9 @@ const waitTimesSlice = createSlice({
     updateView: (state, { payload }) => {
       state.view = payload;
     },
+    changeDate: (state, { payload }) => {
+      state.date = payload;
+    },
   },
   extraReducers: {
     [getParkTimes.pending]: (state) => {
@@ -90,6 +93,7 @@ const waitTimesSlice = createSlice({
       state.isLoading = false;
       state.waitTimes = payload;
       state.view = 'ride view';
+      state.currentRide = payload[0].name;
     },
     [viewRideInfo.rejected]: (state) => {
       state.isLoading = false;
@@ -103,6 +107,7 @@ export const {
   updateMilitaryTime,
   updatePark,
   updateView,
+  changeDate,
 } = waitTimesSlice.actions;
 
 export default waitTimesSlice.reducer;
