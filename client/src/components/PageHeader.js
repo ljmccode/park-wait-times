@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import TimeDropdown from './TimeDropdown';
 import DatePickerComponent from './DatePicker';
 import {
   getParkTimes,
   viewRideInfo,
 } from '../features/waitTimes/waitTimesSlice';
+import NameTime from './NameTime';
 
 const PageHeader = () => {
   const dispatch = useDispatch();
@@ -20,15 +20,15 @@ const PageHeader = () => {
 
   return (
     <Header>
-      <DatePickerComponent />
-      {view === 'time view' ? (
-        <TimeDropdown />
-      ) : (
-        <h3 className='ride-name'>{currentRide}</h3>
-      )}
-      <button type='button' className='btn btn-hipster filter-btn'>
-        filter
-      </button>
+      <NameTime />
+      <div className='filters'>
+        <DatePickerComponent />
+        <div className='button-div'>
+          <button type='button' className='btn btn-hipster filter-btn'>
+            filter
+          </button>
+        </div>
+      </div>
     </Header>
   );
 };
@@ -36,44 +36,71 @@ const PageHeader = () => {
 export default PageHeader;
 
 const Header = styled.div`
-  width: 80vw;
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 1fr auto;
-  margin: 0 auto;
-  padding-top: 2rem;
+  .name-time {
+    padding-top: 1rem;
+    width: 100vw;
+    margin: 0 auto;
+    background-color: var(--primary-400);
+  }
+
+  .filters {
+    width: 80vw;
+    margin: 0 auto;
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
 
   .ride-name {
-    margin-bottom: 0;
-    /* color: #a77a7a; */
+    margin: 0 auto;
+    color: var(--white);
+    font-weight: bold;
+    letter-spacing: var(--letterSpacing);
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .button-div {
+    margin: 0 auto;
   }
 
   .filter-btn {
     border-radius: 1rem;
     padding: 0.5rem 2rem;
     font-size: 1rem;
+    width: 150px;
   }
 
   .select-input {
     cursor: pointer;
     color: var(--primary-600);
-    background-color: var(--grey-100);
     border: transparent;
     border-radius: var(--borderRadius);
     letter-spacing: var(--letterSpacing);
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 0.8rem;
     box-shadow: var(--shadow-2);
     border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .select-input:hover {
     box-shadow: var(--shadow-3);
   }
+  .select {
+    margin: 0 auto;
+  }
 
   @media screen and (min-width: 668px) {
-    width: 80vw;
-    max-width: 1120px;
     .filter-btn {
       font-size: 1.25rem;
+    }
+    .select-input {
+      padding: 0.5rem 1.5rem;
+    }
+    .ride-name {
+      font-size: 1.2rem;
     }
   }
 `;
