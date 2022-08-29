@@ -19,6 +19,7 @@ const DatePickerComponent = () => {
   return (
     <DateDropdown>
       <DatePicker
+        className='date-picker'
         selected={displayDate}
         onChange={(date) => setChangeDate(date)}
         minDate={startDate}
@@ -32,4 +33,23 @@ export default DatePickerComponent;
 
 const DateDropdown = styled.div`
   z-index: 20;
+  margin: 0 auto;
+
+  .date-picker {
+    cursor: pointer;
+    border: 1px solid var(--grey-300);
+    border-radius: 1rem;
+    padding: 0.5rem 0;
+    color: var(--primary-600);
+    font-weight: bold;
+    text-align: center;
+    font-size: 1rem;
+    box-shadow: var(--shadow-2);
+    letter-spacing: var(--letterSpacing);
+    width: 135px;
+  }
+
+  @media screen and (min-width: 668px) {
+    width: 150px;
+  }
 `;
