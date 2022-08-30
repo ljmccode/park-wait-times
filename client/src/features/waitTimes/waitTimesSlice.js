@@ -1,11 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import {
-  ascendTime,
-  ascendName,
-  ascendWaitTime,
-  ascendStatus,
-} from './sortSlice';
 
 const currentDate = new Date();
 const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
@@ -62,65 +56,26 @@ export const getParkTimes = createAsyncThunk(
 export const viewRideInfo = createAsyncThunk(
   'waitTimes/viewRideInfo',
   async (name, thunkAPI) => {
-    // thunkAPI.dispatch(ascendTime());
+    let { currentSort, waitAscending, timeAscending, statusAscending } =
+      thunkAPI.getState().sort;
+
+    switch (currentSort) {
+      case 'time':
+        currentSort = timeAscending ? currentSort : `-${currentSort}`;
+        break;
+      case 'waitTime':
+        currentSort = waitAscending ? `-${currentSort}` : currentSort;
+        break;
+      case 'status':
+        currentSort = statusAscending ? currentSort : `-${currentSort}`;
+        break;
+      default:
+        currentSort = 'time';
+    }
     const { date, currentPark } = thunkAPI.getState().waitTimes;
     const urlName = encodeURIComponent(name);
-    let url = `/api/v1/${currentPark}/${urlName}?date=${date}&sort=time`;
+    let url = `/api/v1/${currentPark}/${urlName}?date=${date}&sort=${currentSort}`;
     try {
-      const { data } = await axios(url);
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
-export const sortName = createAsyncThunk(
-  'waitTimes/sortName',
-  async (_, thunkAPI) => {
-    try {
-      const { nameAscending } = thunkAPI.getState().sort;
-      const { currentPark, militaryTime, date } = thunkAPI.getState().waitTimes;
-      let url = `/api/v1/${currentPark}?time=${militaryTime}&date=${date}`;
-
-      nameAscending === true ? (url += '&sort=name') : (url += '&sort=-name');
-      const { data } = await axios(url);
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
-export const sortTime = createAsyncThunk(
-  'waitTimes/sortTime',
-  async (name, thunkAPI) => {
-    try {
-      const { timeAscending } = thunkAPI.getState().sort;
-      const { date, currentPark } = thunkAPI.getState().waitTimes;
-      const urlName = encodeURIComponent(name);
-      let url = `/api/v1/${currentPark}/${urlName}?date=${date}`;
-
-      timeAscending === true ? (url += '&sort=time') : (url += '&sort=-time');
-      const { data } = await axios(url);
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
-export const sortWait = createAsyncThunk(
-  'waitTimes/sortWait',
-  async (_, thunkAPI) => {
-    try {
-      const { waitAscending } = thunkAPI.getState().sort;
-      const { currentPark, militaryTime, date } = thunkAPI.getState().waitTimes;
-      let url = `/api/v1/${currentPark}?time=${militaryTime}&date=${date}`;
-
-      waitAscending === true
-        ? (url += '&sort=-waitTime')
-        : (url += '&sort=waitTime');
       const { data } = await axios(url);
       return data;
     } catch (error) {
@@ -174,36 +129,6 @@ const waitTimesSlice = createSlice({
       state.currentRide = payload[0].name;
     },
     [viewRideInfo.rejected]: (state) => {
-      state.isLoading = false;
-    },
-    [sortName.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [sortName.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.waitTimes = payload;
-    },
-    [sortName.rejected]: (state) => {
-      state.isLoading = false;
-    },
-    [sortTime.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [sortTime.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.waitTimes = payload;
-    },
-    [sortTime.rejected]: (state) => {
-      state.isLoading = false;
-    },
-    [sortWait.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [sortWait.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.waitTimes = payload;
-    },
-    [sortWait.rejected]: (state) => {
       state.isLoading = false;
     },
   },

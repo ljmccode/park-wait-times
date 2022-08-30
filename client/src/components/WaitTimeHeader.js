@@ -6,14 +6,13 @@ import {
   updateStatusSort,
   updateWaitSort,
 } from '../features/waitTimes/sortSlice';
-import {
-  sortName,
-  sortTime,
-  sortWait,
-} from '../features/waitTimes/waitTimesSlice';
 import Caret from './Caret';
 
 import styled from 'styled-components';
+import {
+  getParkTimes,
+  viewRideInfo,
+} from '../features/waitTimes/waitTimesSlice';
 
 const WaitTimeHeader = ({ view }) => {
   const dispatch = useDispatch();
@@ -31,17 +30,20 @@ const WaitTimeHeader = ({ view }) => {
 
   const startSortName = () => {
     dispatch(updateNameSort());
-    dispatch(sortName());
+    dispatch(getParkTimes());
   };
 
   const startTimeSort = () => {
     dispatch(updateTimeSort());
-    dispatch(sortTime(currentRide));
+    dispatch(viewRideInfo(currentRide));
   };
 
   const startWaitSort = () => {
     dispatch(updateWaitSort());
-    dispatch(sortWait());
+    if (view === 'time view') {
+      return dispatch(getParkTimes());
+    }
+    dispatch(viewRideInfo(currentRide));
   };
 
   return (
