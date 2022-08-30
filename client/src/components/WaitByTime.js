@@ -4,12 +4,13 @@ import { useParams } from 'react-router-dom';
 import { getParkTimes, updatePark } from '../features/waitTimes/waitTimesSlice';
 import WaitTimeItem from '../components/WaitTimeItem';
 import WaitTimeHeader from '../components/WaitTimeHeader';
+import Loader from './Loader';
 import NoData from '../components/NoData';
 import styled from 'styled-components';
 
 const WaitByTime = () => {
   const dispatch = useDispatch();
-  const { waitTimes, time, currentPark, view } = useSelector(
+  const { waitTimes, time, currentPark, view, isLoading } = useSelector(
     (store) => store.waitTimes
   );
   const { park } = useParams();
@@ -21,6 +22,10 @@ const WaitByTime = () => {
   useEffect(() => {
     dispatch(updatePark(park));
   }, [park]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return waitTimes.length === 0 ? (
     <NoData time={time} />

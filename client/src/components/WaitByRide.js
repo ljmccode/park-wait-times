@@ -5,15 +5,22 @@ import WaitTimeHeader from './WaitTimeHeader';
 import NoData from './NoData';
 import { updateView } from '../features/waitTimes/waitTimesSlice';
 import { updateNameSort } from '../features/waitTimes/sortSlice';
+import Loader from './Loader';
 
 const WaitByRide = () => {
   const dispatch = useDispatch();
-  const { waitTimes, time, view } = useSelector((store) => store.waitTimes);
+  const { waitTimes, time, view, isLoading } = useSelector(
+    (store) => store.waitTimes
+  );
 
   const setTimeView = () => {
     dispatch(updateView('time view'));
     dispatch(updateNameSort());
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return waitTimes.length === 0 ? (
     <>
