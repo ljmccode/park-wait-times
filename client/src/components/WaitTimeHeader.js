@@ -1,22 +1,57 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  updateNameSort,
+  updateTimeSort,
+  updateStatusSort,
+  updateWaitSort,
+} from '../features/waitTimes/sortSlice';
+import { sortName } from '../features/waitTimes/waitTimesSlice';
+import Caret from './Caret';
+
 import styled from 'styled-components';
 
 const WaitTimeHeader = ({ view }) => {
+  const dispatch = useDispatch();
+  const { currentSort } = useSelector((store) => store.sort);
+  const [width, setWidth] = useState(window.innerWidth);
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  const startSortName = () => {
+    dispatch(updateNameSort());
+    dispatch(sortName());
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  });
+
   return (
     <HeaderStyles className='wait-time-header'>
       {view === 'time view' ? (
-        <div className='name-block'>
+        <div className='name-block' onClick={() => startSortName()}>
           <span>Name</span>
+          {currentSort === 'name' && <Caret />}
         </div>
       ) : (
-        <div className='time-block'>
+        <div className='time-block' onClick={() => dispatch(updateTimeSort())}>
           <span>Time</span>
+          {currentSort === 'time' && <Caret />}
         </div>
       )}
-      <div className='wait-block'>
-        <span>Wait Time</span>
+      <div className='wait-block' onClick={() => dispatch(updateWaitSort())}>
+        <span>Wait {width > 668 && <span>Time</span>}</span>
+        {currentSort === 'wait' && <Caret />}
       </div>
-      <div className='status-block'>
+      <div
+        className='status-block'
+        onClick={() => dispatch(updateStatusSort())}
+      >
         <span>Status</span>
+        {currentSort === 'status' && <Caret />}
       </div>
     </HeaderStyles>
   );
@@ -38,19 +73,33 @@ const HeaderStyles = styled.div`
   text-align: center;
   font-size: 1rem;
 
+  .caret {
+    margin-left: 5px;
+  }
+
   .time-block {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50%;
   }
 
   .name-block {
-    width: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
   }
   .wait-block {
-    width: 20%;
+    cursor: pointer;
+    width: 30%;
   }
 
   .status-block {
-    width: 30%;
+    cursor: pointer;
+    width: 25%;
   }
 
   @media screen and (min-width: 992px) {
