@@ -6,7 +6,7 @@ import {
   updateStatusSort,
   updateWaitSort,
 } from '../features/waitTimes/sortSlice';
-import { sortName } from '../features/waitTimes/waitTimesSlice';
+import { sortName, sortTime } from '../features/waitTimes/waitTimesSlice';
 import Caret from './Caret';
 
 import styled from 'styled-components';
@@ -14,20 +14,26 @@ import styled from 'styled-components';
 const WaitTimeHeader = ({ view }) => {
   const dispatch = useDispatch();
   const { currentSort } = useSelector((store) => store.sort);
+  const { currentRide } = useSelector((store) => store.waitTimes);
   const [width, setWidth] = useState(window.innerWidth);
   const updateWidth = () => {
     setWidth(window.innerWidth);
-  };
-
-  const startSortName = () => {
-    dispatch(updateNameSort());
-    dispatch(sortName());
   };
 
   useEffect(() => {
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
   });
+
+  const startSortName = () => {
+    dispatch(updateNameSort());
+    dispatch(sortName());
+  };
+
+  const startTimeSort = () => {
+    dispatch(updateTimeSort());
+    dispatch(sortTime(currentRide));
+  };
 
   return (
     <HeaderStyles className='wait-time-header'>
@@ -37,14 +43,14 @@ const WaitTimeHeader = ({ view }) => {
           {currentSort === 'name' && <Caret />}
         </div>
       ) : (
-        <div className='time-block' onClick={() => dispatch(updateTimeSort())}>
+        <div className='time-block' onClick={() => startTimeSort()}>
           <span>Time</span>
           {currentSort === 'time' && <Caret />}
         </div>
       )}
       <div className='wait-block' onClick={() => dispatch(updateWaitSort())}>
         <span>Wait {width > 668 && <span>Time</span>}</span>
-        {currentSort === 'wait' && <Caret />}
+        {currentSort === 'waitTime' && <Caret />}
       </div>
       <div
         className='status-block'
