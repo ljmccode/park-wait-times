@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import HollywoodWaitTime from './hollywoodStudios.mongo.js';
 
 export const getAllHSRides = async (time, date, sort) => {
-  console.log(time, date, sort);
   return await HollywoodWaitTime.find({ time, date }).sort(`${sort}`);
 };
 
