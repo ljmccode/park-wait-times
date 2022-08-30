@@ -20,12 +20,12 @@ const PageHeader = () => {
 
   return (
     <Header>
-      <DatePickerComponent />
       {view === 'time view' ? (
         <TimeDropdown />
       ) : (
         <p className='ride-name'>{currentRide}</p>
       )}
+      <DatePickerComponent />
     </Header>
   );
 };
@@ -42,7 +42,7 @@ const Header = styled.div`
 
   .ride-name {
     margin: 0 auto;
-    color: var(--white);
+    color: var(--grey-800);
     font-weight: bold;
     letter-spacing: var(--letterSpacing);
     font-size: 1rem;
