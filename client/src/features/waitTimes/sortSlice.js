@@ -42,6 +42,9 @@ const sortSlice = createSlice({
         currentSort: 'status',
       };
     },
+    restartSort: (state) => {
+      return initialState;
+    },
   },
 });
 
@@ -50,6 +53,7 @@ export const {
   updateWaitSort,
   updateStatusSort,
   updateTimeSort,
+  restartSort,
 } = sortSlice.actions;
 
 export default sortSlice.reducer;
