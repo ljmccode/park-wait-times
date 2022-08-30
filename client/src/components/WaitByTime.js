@@ -22,7 +22,7 @@ const WaitByTime = () => {
     dispatch(updatePark(park));
   }, [park]);
 
-  return !waitTimes ? (
+  return waitTimes.length === 0 ? (
     <NoData time={time} />
   ) : (
     <WaitContainer>

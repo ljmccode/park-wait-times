@@ -4,10 +4,16 @@ import WaitTimeItem from './WaitTimeItem';
 import WaitTimeHeader from './WaitTimeHeader';
 import NoData from './NoData';
 import { updateView } from '../features/waitTimes/waitTimesSlice';
+import { updateNameSort } from '../features/waitTimes/sortSlice';
 
 const WaitByRide = () => {
   const dispatch = useDispatch();
   const { waitTimes, time, view } = useSelector((store) => store.waitTimes);
+
+  const setTimeView = () => {
+    dispatch(updateView('time view'));
+    dispatch(updateNameSort());
+  };
 
   return waitTimes.length === 0 ? (
     <>
@@ -26,7 +32,7 @@ const WaitByRide = () => {
         <button
           type='button'
           className='btn-hipster btn return-btn'
-          onClick={() => dispatch(updateView('time view'))}
+          onClick={() => setTimeView()}
         >
           Back to Park
         </button>
