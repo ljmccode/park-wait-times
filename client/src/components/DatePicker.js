@@ -40,7 +40,7 @@ const DateDropdown = styled.div`
     border: 1px solid var(--grey-300);
     border-radius: 1rem;
     padding: 0.5rem 0;
-    color: var(--grey-900);
+    color: var(--primary-600);
     font-weight: bold;
     text-align: center;
     font-size: 1rem;

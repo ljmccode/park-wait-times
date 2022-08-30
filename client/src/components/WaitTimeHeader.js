@@ -1,22 +1,79 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  updateNameSort,
+  updateTimeSort,
+  updateStatusSort,
+  updateWaitSort,
+} from '../features/waitTimes/sortSlice';
+import Caret from './Caret';
+
 import styled from 'styled-components';
+import {
+  getParkTimes,
+  viewRideInfo,
+} from '../features/waitTimes/waitTimesSlice';
 
 const WaitTimeHeader = ({ view }) => {
+  const dispatch = useDispatch();
+  const { currentSort } = useSelector((store) => store.sort);
+  const { currentRide } = useSelector((store) => store.waitTimes);
+  const [width, setWidth] = useState(window.innerWidth);
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  });
+
+  const startSortName = () => {
+    dispatch(updateNameSort());
+    dispatch(getParkTimes());
+  };
+
+  const startTimeSort = () => {
+    dispatch(updateTimeSort());
+    dispatch(viewRideInfo(currentRide));
+  };
+
+  const startWaitSort = () => {
+    dispatch(updateWaitSort());
+    if (view === 'time view') {
+      return dispatch(getParkTimes());
+    }
+    dispatch(viewRideInfo(currentRide));
+  };
+
+  const startStatusSort = () => {
+    dispatch(updateStatusSort());
+    if (view === 'time view') {
+      return dispatch(getParkTimes());
+    }
+    dispatch(viewRideInfo(currentRide));
+  };
+
   return (
     <HeaderStyles className='wait-time-header'>
       {view === 'time view' ? (
-        <div className='name-block'>
+        <div className='name-block' onClick={() => startSortName()}>
           <span>Name</span>
+          {currentSort === 'name' && <Caret />}
         </div>
       ) : (
-        <div className='time-block'>
+        <div className='time-block' onClick={() => startTimeSort()}>
           <span>Time</span>
+          {currentSort === 'time' && <Caret />}
         </div>
       )}
-      <div className='wait-block'>
-        <span>Wait Time</span>
+      <div className='wait-block' onClick={() => startWaitSort()}>
+        <span>Wait {width > 668 && <span>Time</span>}</span>
+        {currentSort === 'waitTime' && <Caret />}
       </div>
-      <div className='status-block'>
+      <div className='status-block' onClick={() => startStatusSort()}>
         <span>Status</span>
+        {currentSort === 'status' && <Caret />}
       </div>
     </HeaderStyles>
   );
@@ -38,19 +95,33 @@ const HeaderStyles = styled.div`
   text-align: center;
   font-size: 1rem;
 
+  .caret {
+    margin-left: 5px;
+  }
+
   .time-block {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50%;
   }
 
   .name-block {
-    width: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
   }
   .wait-block {
-    width: 20%;
+    cursor: pointer;
+    width: 30%;
   }
 
   .status-block {
-    width: 30%;
+    cursor: pointer;
+    width: 25%;
   }
 
   @media screen and (min-width: 992px) {
