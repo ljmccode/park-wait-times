@@ -6,7 +6,11 @@ import {
   updateStatusSort,
   updateWaitSort,
 } from '../features/waitTimes/sortSlice';
-import { sortName, sortTime } from '../features/waitTimes/waitTimesSlice';
+import {
+  sortName,
+  sortTime,
+  sortWait,
+} from '../features/waitTimes/waitTimesSlice';
 import Caret from './Caret';
 
 import styled from 'styled-components';
@@ -35,6 +39,11 @@ const WaitTimeHeader = ({ view }) => {
     dispatch(sortTime(currentRide));
   };
 
+  const startWaitSort = () => {
+    dispatch(updateWaitSort());
+    dispatch(sortWait());
+  };
+
   return (
     <HeaderStyles className='wait-time-header'>
       {view === 'time view' ? (
@@ -48,7 +57,7 @@ const WaitTimeHeader = ({ view }) => {
           {currentSort === 'time' && <Caret />}
         </div>
       )}
-      <div className='wait-block' onClick={() => dispatch(updateWaitSort())}>
+      <div className='wait-block' onClick={() => startWaitSort()}>
         <span>Wait {width > 668 && <span>Time</span>}</span>
         {currentSort === 'waitTime' && <Caret />}
       </div>
