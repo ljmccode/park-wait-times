@@ -27,7 +27,8 @@ export const getParkTimes = createAsyncThunk(
   'waitTimes/getParkTimes',
   async (_, thunkAPI) => {
     const { militaryTime, date, currentPark } = thunkAPI.getState().waitTimes;
-    let url = `/api/v1/${currentPark}?time=${militaryTime}&date=${date}`;
+    let url = `/api/v1/${currentPark}?time=${militaryTime}&date=${date}&sort=name`;
+    console.log(url);
     try {
       const { data } = await axios(url);
       return data;
@@ -44,6 +45,23 @@ export const viewRideInfo = createAsyncThunk(
     const urlName = encodeURIComponent(name);
     let url = `/api/v1/${currentPark}/${urlName}?date=${date}`;
     try {
+      const { data } = await axios(url);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const sortName = createAsyncThunk(
+  'sort/sortName',
+  async (_, thunkAPI) => {
+    try {
+      const { nameAscending } = thunkAPI.getState().sort;
+      const { currentPark, militaryTime, date } = thunkAPI.getState().waitTimes;
+      let url = `/api/v1/${currentPark}?time=${militaryTime}&date=${date}`;
+
+      nameAscending === true ? (url += '&sort=name') : (url += '&sort=-name');
       const { data } = await axios(url);
       return data;
     } catch (error) {
@@ -70,6 +88,7 @@ const waitTimesSlice = createSlice({
     },
     updateView: (state, { payload }) => {
       state.view = payload;
+      state.currentSort = 'name';
     },
     changeDate: (state, { payload }) => {
       state.date = payload;
@@ -96,6 +115,16 @@ const waitTimesSlice = createSlice({
       state.currentRide = payload[0].name;
     },
     [viewRideInfo.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [sortName.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [sortName.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.waitTimes = payload;
+    },
+    [sortName.rejected]: (state) => {
       state.isLoading = false;
     },
   },
