@@ -1,16 +1,34 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import epcotLogo from '../assets/images/epcot-logo-grey.png';
 import { Link } from 'react-router-dom';
 import hsLogo from '../assets/images/hs-logo-grey.png';
 import styled from 'styled-components';
+import {
+  getParkTimes,
+  updatePark,
+  updateView,
+} from '../features/waitTimes/waitTimesSlice';
+import { restartSort } from '../features/waitTimes/sortSlice';
 
 const Parks = () => {
+  const dispatch = useDispatch();
   const { currentPark } = useSelector((store) => store.waitTimes);
+
+  const startUpdatePark = (parkName) => {
+    dispatch(updateView('time view'));
+    dispatch(updatePark(parkName));
+    dispatch(restartSort());
+    dispatch(getParkTimes());
+  };
 
   return (
     <ParksContainer>
       <div className='parks-center'>
-        <Link to='/hollywood-studios' className='park-logo-container'>
+        <Link
+          to='/hollywood-studios'
+          className='park-logo-container'
+          onClick={() => startUpdatePark('hollywood-studios')}
+        >
           <img
             src={hsLogo}
             alt='Hollywood Studios Logo'
@@ -20,7 +38,11 @@ const Parks = () => {
             Hollywood Studios
           </p>
         </Link>
-        <Link to='epcot' className='park-logo-container'>
+        <Link
+          to='epcot'
+          className='park-logo-container'
+          onClick={() => startUpdatePark('epcot')}
+        >
           <img src={epcotLogo} alt='Epcot Logo' className='park-icon' />
           <p className={currentPark === 'epcot' ? 'active' : ''}>Epcot</p>
         </Link>
