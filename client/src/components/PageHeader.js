@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import DatePickerComponent from './DatePicker';
+import TimeDropdown from './TimeDropdown';
 import {
   getParkTimes,
   viewRideInfo,
 } from '../features/waitTimes/waitTimesSlice';
-import NameTime from './NameTime';
 
 const PageHeader = () => {
   const dispatch = useDispatch();
@@ -20,15 +20,12 @@ const PageHeader = () => {
 
   return (
     <Header>
-      <NameTime />
-      <div className='filters'>
-        <DatePickerComponent />
-        <div className='button-div'>
-          <button type='button' className='btn btn-hipster filter-btn'>
-            filter
-          </button>
-        </div>
-      </div>
+      <DatePickerComponent />
+      {view === 'time view' ? (
+        <TimeDropdown />
+      ) : (
+        <p className='ride-name'>{currentRide}</p>
+      )}
     </Header>
   );
 };
@@ -36,21 +33,12 @@ const PageHeader = () => {
 export default PageHeader;
 
 const Header = styled.div`
-  .name-time {
-    padding-top: 1rem;
-    width: 100vw;
-    margin: 0 auto;
-    background-color: var(--primary-400);
-  }
-
-  .filters {
-    width: 80vw;
-    margin: 0 auto;
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-  }
+  padding-top: 2rem;
+  width: 80vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
 
   .ride-name {
     margin: 0 auto;
