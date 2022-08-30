@@ -43,6 +43,20 @@ const sortSlice = createSlice({
         currentSort: 'status',
       };
     },
+    ascendName: (state) => {
+      return {
+        ...initialState,
+        nameAscending: true,
+      };
+    },
+    ascendTime: (state) => {
+      return {
+        ...initialState,
+        nameAscending: false,
+        timeAscending: true,
+        currentSort: 'time',
+      };
+    },
   },
 });
 
@@ -51,6 +65,8 @@ export const {
   updateWaitSort,
   updateStatusSort,
   updateTimeSort,
+  ascendTime,
+  ascendName,
 } = sortSlice.actions;
 
 export default sortSlice.reducer;
