@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { ascendTime, ascendName } from './sortSlice';
 
 const currentDate = new Date();
 const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
@@ -26,9 +27,9 @@ const initialState = {
 export const getParkTimes = createAsyncThunk(
   'waitTimes/getParkTimes',
   async (_, thunkAPI) => {
+    thunkAPI.dispatch(ascendName());
     const { militaryTime, date, currentPark } = thunkAPI.getState().waitTimes;
     let url = `/api/v1/${currentPark}?time=${militaryTime}&date=${date}&sort=name`;
-    console.log(url);
     try {
       const { data } = await axios(url);
       return data;
@@ -41,9 +42,10 @@ export const getParkTimes = createAsyncThunk(
 export const viewRideInfo = createAsyncThunk(
   'waitTimes/viewRideInfo',
   async (name, thunkAPI) => {
+    thunkAPI.dispatch(ascendTime());
     const { date, currentPark } = thunkAPI.getState().waitTimes;
     const urlName = encodeURIComponent(name);
-    let url = `/api/v1/${currentPark}/${urlName}?date=${date}`;
+    let url = `/api/v1/${currentPark}/${urlName}?date=${date}&sort=time`;
     try {
       const { data } = await axios(url);
       return data;
@@ -54,7 +56,7 @@ export const viewRideInfo = createAsyncThunk(
 );
 
 export const sortName = createAsyncThunk(
-  'sort/sortName',
+  'waitTimes/sortName',
   async (_, thunkAPI) => {
     try {
       const { nameAscending } = thunkAPI.getState().sort;
@@ -62,6 +64,24 @@ export const sortName = createAsyncThunk(
       let url = `/api/v1/${currentPark}?time=${militaryTime}&date=${date}`;
 
       nameAscending === true ? (url += '&sort=name') : (url += '&sort=-name');
+      const { data } = await axios(url);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const sortTime = createAsyncThunk(
+  'waitTimes/sortTime',
+  async (name, thunkAPI) => {
+    try {
+      const { timeAscending } = thunkAPI.getState().sort;
+      const { date, currentPark } = thunkAPI.getState().waitTimes;
+      const urlName = encodeURIComponent(name);
+      let url = `/api/v1/${currentPark}/${urlName}?date=${date}`;
+
+      timeAscending === true ? (url += '&sort=time') : (url += '&sort=-time');
       const { data } = await axios(url);
       return data;
     } catch (error) {
@@ -125,6 +145,16 @@ const waitTimesSlice = createSlice({
       state.waitTimes = payload;
     },
     [sortName.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [sortTime.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [sortTime.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.waitTimes = payload;
+    },
+    [sortTime.rejected]: (state) => {
       state.isLoading = false;
     },
   },
