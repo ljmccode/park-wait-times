@@ -46,6 +46,14 @@ const WaitTimeHeader = ({ view }) => {
     dispatch(viewRideInfo(currentRide));
   };
 
+  const startStatusSort = () => {
+    dispatch(updateStatusSort());
+    if (view === 'time view') {
+      return dispatch(getParkTimes());
+    }
+    dispatch(viewRideInfo(currentRide));
+  };
+
   return (
     <HeaderStyles className='wait-time-header'>
       {view === 'time view' ? (
@@ -63,10 +71,7 @@ const WaitTimeHeader = ({ view }) => {
         <span>Wait {width > 668 && <span>Time</span>}</span>
         {currentSort === 'waitTime' && <Caret />}
       </div>
-      <div
-        className='status-block'
-        onClick={() => dispatch(updateStatusSort())}
-      >
+      <div className='status-block' onClick={() => startStatusSort()}>
         <span>Status</span>
         {currentSort === 'status' && <Caret />}
       </div>
