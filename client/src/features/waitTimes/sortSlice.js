@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   nameAscending: true,
@@ -43,36 +42,6 @@ const sortSlice = createSlice({
         currentSort: 'status',
       };
     },
-    // ascendName: (state) => {
-    //   return {
-    //     ...initialState,
-    //     nameAscending: true,
-    //   };
-    // },
-    // ascendTime: (state) => {
-    //   return {
-    //     ...initialState,
-    //     nameAscending: false,
-    //     timeAscending: true,
-    //     currentSort: 'time',
-    //   };
-    // },
-    // ascendWaitTime: (state) => {
-    //   return {
-    //     ...initialState,
-    //     nameAscending: false,
-    //     waitAscending: true,
-    //     currentSort: 'waitTime',
-    //   };
-    // },
-    // ascendStatus: (state) => {
-    //   return {
-    //     ...initialState,
-    //     nameAscending: false,
-    //     statusAscending: true,
-    //     currentSort: 'status',
-    //   };
-    // },
   },
 });
 
@@ -81,10 +50,6 @@ export const {
   updateWaitSort,
   updateStatusSort,
   updateTimeSort,
-  // ascendTime,
-  // ascendName,
-  // ascendWaitTime,
-  // ascendStatus,
 } = sortSlice.actions;
 
 export default sortSlice.reducer;
