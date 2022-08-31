@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { getParkTimes, updatePark } from '../features/waitTimes/waitTimesSlice';
 import WaitTimeItem from '../components/WaitTimeItem';
 import WaitTimeHeader from '../components/WaitTimeHeader';
@@ -13,7 +13,10 @@ const WaitByTime = () => {
   const { waitTimes, time, currentPark, view, isLoading } = useSelector(
     (store) => store.waitTimes
   );
-  const { park } = useParams();
+
+  const location = useLocation();
+  const url = location.pathname;
+  const park = url.split('/')[1];
 
   useEffect(() => {
     dispatch(getParkTimes());
