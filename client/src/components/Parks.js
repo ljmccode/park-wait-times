@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import epcotLogo from '../assets/images/epcot-logo-grey.png';
-import { Link } from 'react-router-dom';
 import hsLogo from '../assets/images/hs-logo-grey.png';
+import mkLogo from '../assets/images/magic-kingdom-grey.png';
+import akLogo from '../assets/images/animal-kingdom-grey.png';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   getParkTimes,
@@ -25,6 +27,17 @@ const Parks = () => {
     <ParksContainer>
       <div className='parks-center'>
         <Link
+          to='/magic-kingdom'
+          className='park-logo-container'
+          onClick={() => startUpdatePark('magic-kingdom')}
+        >
+          <img src={mkLogo} alt='Magic Kingdom Logo' className='park-icon' />
+          <p className={currentPark === 'magic-kingdom' ? 'active' : ''}>
+            <span>Magic&nbsp;</span>
+            <span>Kingdom</span>
+          </p>
+        </Link>
+        <Link
           to='/hollywood-studios'
           className='park-logo-container'
           onClick={() => startUpdatePark('hollywood-studios')}
@@ -35,7 +48,8 @@ const Parks = () => {
             className='park-icon'
           />
           <p className={currentPark === 'hollywood-studios' ? 'active' : ''}>
-            Hollywood Studios
+            <span>Hollywood&nbsp;</span>
+            <span>Studios</span>
           </p>
         </Link>
         <Link
@@ -46,6 +60,17 @@ const Parks = () => {
           <img src={epcotLogo} alt='Epcot Logo' className='park-icon' />
           <p className={currentPark === 'epcot' ? 'active' : ''}>Epcot</p>
         </Link>
+        <Link
+          to='animal-kingdom'
+          className='park-logo-container'
+          onClick={() => startUpdatePark('animal-kingdom')}
+        >
+          <img src={akLogo} alt='Animal Kingdom Logo' className='park-icon' />
+          <p className={currentPark === 'animal-kingdom' ? 'active' : ''}>
+            <span>Animal&nbsp;</span>
+            <span>Kingdom</span>
+          </p>
+        </Link>
       </div>
     </ParksContainer>
   );
@@ -54,7 +79,7 @@ const Parks = () => {
 export default Parks;
 
 const ParksContainer = styled.div`
-  height: 6rem;
+  height: 7rem;
   background-color: var(--gold-300);
   display: flex;
   align-items: center;
@@ -64,12 +89,12 @@ const ParksContainer = styled.div`
   z-index: 10;
 
   .parks-center {
-    height: 6rem;
+    /* height: 6rem; */
     width: 90%;
     max-width: var(--maxWidth);
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: baseline;
   }
 
   .park-logo-container {
@@ -82,6 +107,15 @@ const ParksContainer = styled.div`
       margin: 0;
       color: red;
       color: var(--grey-500);
+      text-align: center;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    img {
+      height: 45px;
+      width: 45px;
     }
 
     .active {
@@ -101,5 +135,21 @@ const ParksContainer = styled.div`
   .park-icon {
     align-items: center;
     width: 60px;
+  }
+
+  @media screen and (min-width: 668px) {
+    .parks-center {
+      align-items: center;
+    }
+
+    .park-logo-container p {
+      font-size: 1rem;
+      flex-direction: row;
+    }
+
+    .park-logo-container img {
+      height: 60px;
+      width: 60px;
+    }
   }
 `;
