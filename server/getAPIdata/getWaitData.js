@@ -1,6 +1,8 @@
 import moment from 'moment';
 import { getHollywoodWaitTimes } from './hollywoodWaitTimes.js';
 import { getEpcotWaitTimes } from './epcotWaitTimes.js';
+import { getMKWaitTimes } from './magicKingdomWaitTimes.js';
+import { getAKWaitTimes } from './animalKingdomWaitTimes.js';
 
 export const getWaitTimeData = () => {
   let currentTime = new Date().getTime();
@@ -15,5 +17,7 @@ export const getWaitTimeData = () => {
   }
   getHollywoodWaitTimes();
   getEpcotWaitTimes();
+  getMKWaitTimes();
+  getAKWaitTimes();
   console.log(`data pulled at ${new Date().toLocaleTimeString()} Central Time`);
 };
