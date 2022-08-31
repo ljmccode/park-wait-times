@@ -15,7 +15,7 @@ const initialFilterState = {
 };
 
 const initialState = {
-  currentPark: 'hollywood-studios',
+  currentPark: 'magic-kingdom',
   currentRide: '',
   view: 'time view',
   isLoading: false,
