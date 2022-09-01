@@ -3,10 +3,8 @@ import { getHollywoodWaitTimes } from './hollywoodWaitTimes.js';
 import { getEpcotWaitTimes } from './epcotWaitTimes.js';
 import { getMKWaitTimes } from './magicKingdomWaitTimes.js';
 import { getAKWaitTimes } from './animalKingdomWaitTimes.js';
-import { connectDB } from '../db.js';
 
 export const getWaitTimeData = async () => {
-  await connectDB(process.env.MONGO_URI);
   console.log('connected!');
   let currentTime = new Date().getTime();
   let formattedTime = Number(
@@ -26,5 +24,3 @@ export const getWaitTimeData = async () => {
     `data pulled at ${moment(new Date()).tz('America/Chicago')} Central Time`
   );
 };
-
-getWaitTimeData();
