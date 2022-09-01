@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/ljmccode/park-wait-times/issues"
   },
-  "homepage": "https://github.com/ljmccode/park-wait-times#readme"
+  "homepage": "https://github.com/ljmccode/park-wait-times#readme",
+  "engines": {
+    "node": "16.x"
+  }
 }
