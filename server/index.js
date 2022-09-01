@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import cron from 'node-cron';
+// import cron from 'node-cron';
 import cors from 'cors';
 
 import { connectDB } from './db.js';
-import { getWaitTimeData } from './getAPIdata/getWaitData.js';
+// import { getWaitTimeData } from './getAPIdata/getWaitData.js';
 import parkRouter from './routes/parkWaitTime.js';
 
 dotenv.config();
@@ -19,7 +19,7 @@ app.use('/api/v1', parkRouter);
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
-    await cron.schedule('0 * * * *', () => getWaitTimeData());
+    // await cron.schedule('0 * * * *', () => getWaitTimeData());
     app.listen(port, () => {
       console.log(`Now listening on port ${port}`);
     });
