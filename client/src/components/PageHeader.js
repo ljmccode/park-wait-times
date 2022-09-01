@@ -42,7 +42,7 @@ const Header = styled.div`
 
   .ride-name {
     margin: 0 auto;
-    color: var(--grey-800);
+    color: var(--primary-600);
     font-weight: bold;
     letter-spacing: var(--letterSpacing);
     font-size: 1rem;
