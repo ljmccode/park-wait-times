@@ -30,6 +30,7 @@ const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
     // await cron.schedule('0 * * * *', () => getWaitTimeData());
+    await getWaitTimeData();
     app.listen(port, () => {
       console.log(`Now listening on port ${port}`);
     });

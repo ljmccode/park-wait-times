@@ -4,7 +4,7 @@ import { getEpcotWaitTimes } from './epcotWaitTimes.js';
 import { getMKWaitTimes } from './magicKingdomWaitTimes.js';
 import { getAKWaitTimes } from './animalKingdomWaitTimes.js';
 
-const getWaitTimeData = () => {
+export const getWaitTimeData = () => {
   let currentTime = new Date().getTime();
   let formattedTime = Number(
     moment(currentTime).tz('America/New_York').format('HH')
@@ -19,7 +19,7 @@ const getWaitTimeData = () => {
   getEpcotWaitTimes();
   getMKWaitTimes();
   getAKWaitTimes();
-  console.log(`data pulled at ${new Date().toLocaleTimeString()} Central Time`);
+  console.log(
+    `data pulled at ${moment(new Date()).tz('America/Chicago')} Central Time`
+  );
 };
-
-getWaitTimeData();
