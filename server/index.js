@@ -28,9 +28,9 @@ app.get('*', (req, res) => {
 
 const start = async () => {
   try {
+    console.log(`attempting to connect to port ${port}`);
     await connectDB(process.env.MONGO_URI);
     // await cron.schedule('0 * * * *', () => getWaitTimeData());
-    await getWaitTimeData();
     app.listen(port, () => {
       console.log(`Now listening on port ${port}`);
     });
