@@ -104,7 +104,7 @@ const HeaderStyles = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 45%;
   }
 
   .name-block {
@@ -112,16 +112,16 @@ const HeaderStyles = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 45%;
+    width: 50%;
   }
   .wait-block {
     cursor: pointer;
-    width: 30%;
+    width: 20%;
   }
 
   .status-block {
     cursor: pointer;
-    width: 25%;
+    width: 30%;
   }
 
   @media screen and (min-width: 992px) {
