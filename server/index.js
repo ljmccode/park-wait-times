@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 
 import { connectDB } from './db.js';
-// import { getWaitTimeData } from './getAPIdata/getWaitData.js';
+import { getWaitTimeData } from './getAPIdata/getWaitData.js';
 import parkRouter from './routes/parkWaitTime.js';
 
 import path, { dirname } from 'path';
