@@ -1,10 +1,15 @@
 import moment from 'moment';
+import dotenv from 'dotenv';
 import { getHollywoodWaitTimes } from './hollywoodWaitTimes.js';
 import { getEpcotWaitTimes } from './epcotWaitTimes.js';
 import { getMKWaitTimes } from './magicKingdomWaitTimes.js';
 import { getAKWaitTimes } from './animalKingdomWaitTimes.js';
+import { connectDB } from '../db.js';
 
-export const getWaitTimeData = () => {
+dotenv.config();
+
+const getWaitTimeData = async () => {
+  await connectDB(process.env.MONGO_URI);
   let currentTime = new Date().getTime();
   let formattedTime = Number(
     moment(currentTime).tz('America/New_York').format('HH')
@@ -25,3 +30,5 @@ export const getWaitTimeData = () => {
       .format('hh:mm')} Central Time`
   );
 };
+
+getWaitTimeData();

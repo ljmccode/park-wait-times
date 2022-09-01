@@ -1,2 +1,2 @@
 web: npm start
-worker: node server/index.js
+worker: node server/getAPIData/getWaitData.js

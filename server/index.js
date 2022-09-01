@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 
 import { connectDB } from './db.js';
-import { getWaitTimeData } from './getAPIdata/getWaitData.js';
+// import { getWaitTimeData } from './getAPIdata/getWaitData.js';
 import parkRouter from './routes/parkWaitTime.js';
 
 import path, { dirname } from 'path';
@@ -29,7 +29,7 @@ app.get('*', (req, res) => {
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
-    await getWaitTimeData();
+    // await getWaitTimeData();
     // await cron.schedule('0 * * * *', () => getWaitTimeData());
     app.listen(port, () => {
       console.log(`Now listening on port ${port}`);
