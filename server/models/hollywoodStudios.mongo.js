@@ -24,7 +24,7 @@ const HollywoodSchema = new mongoose.Schema({
 
 export default mongoose.model('HollywoodWaitTime', HollywoodSchema);
 
-HollywoodStudiosSchema.pre('save', function () {
+HollywoodSchema.pre('save', function () {
   let roundedTime = `${this.time.slice(0, 4)}0`;
   console.log(roundedTime);
   this.time = roundedTime;
