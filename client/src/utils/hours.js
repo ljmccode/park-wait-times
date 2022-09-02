@@ -57,11 +57,11 @@ export const convertMilitary = (time) => {
   if (amPm === 'PM' && hour !== 12) {
     return `${hour + 12}:00`;
   }
-  if (time === '12:00 PM') {
-    return '12:00';
-  }
   if (time === '12:00 AM') {
     return '00:00';
+  }
+  if (hour < 10) {
+    return `0${hour}:00`;
   }
   return `${hour}:00`;
 };
