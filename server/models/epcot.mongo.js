@@ -23,3 +23,9 @@ const EpcotSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('EpcotWaitTime', EpcotSchema);
+
+EpcotSchema.pre('save', function () {
+  let roundedTime = `${this.time.slice(0, 4)}0`;
+  console.log(roundedTime);
+  this.time = roundedTime;
+});
