@@ -5,6 +5,7 @@ import { getEpcotWaitTimes } from './epcotWaitTimes.js';
 import { getMKWaitTimes } from './magicKingdomWaitTimes.js';
 import { getAKWaitTimes } from './animalKingdomWaitTimes.js';
 import { connectDB } from '../db.js';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -22,15 +23,16 @@ const getWaitTimeData = async () => {
     );
     return;
   }
-  getHollywoodWaitTimes();
-  getEpcotWaitTimes();
-  getMKWaitTimes();
-  getAKWaitTimes();
+  await getHollywoodWaitTimes();
+  await getEpcotWaitTimes();
+  await getMKWaitTimes();
+  await getAKWaitTimes();
   console.log(
     `data pulled at ${moment(new Date())
       .tz('America/Chicago')
       .format('hh:mm')} Central Time`
   );
+  mongoose.disconnect();
 };
 
 getWaitTimeData();
