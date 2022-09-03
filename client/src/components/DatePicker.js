@@ -23,7 +23,7 @@ const DatePickerComponent = () => {
         selected={displayDate}
         onChange={(date) => setChangeDate(date)}
         minDate={startDate}
-        maxDate={new Date()}
+        maxDate={new Date(date)}
       />
     </DateDropdown>
   );
