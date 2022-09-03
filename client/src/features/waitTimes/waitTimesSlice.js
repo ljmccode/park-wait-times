@@ -1,17 +1,34 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { getFloridaTime } from '../../utils/hours';
+import moment from 'moment';
+import 'moment-timezone';
 
-const currentDate = new Date();
-const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-const date = currentDate.getDate().toString().padStart(2, '0');
-const year = currentDate.getFullYear();
+const getDateAndTime = () => {
+  const { hour, amPm } = getFloridaTime();
+  const today = moment(new Date()).tz('America/New_York');
+  const yesterday = moment(new Date())
+    .tz('America/New_York')
+    .subtract(1, 'day');
 
-const formattedDate = `${month}/${date}/${year}`;
+  if (amPm === 'AM' && hour < 7) {
+    return {
+      time: '9:00 PM',
+      date: yesterday.format('MM/DD/YYYY'),
+    };
+  }
+  return {
+    time: `${hour}:00 ${amPm}`,
+    date: today.format('MM/DD/YYYY'),
+  };
+};
+
+const { date, time } = getDateAndTime();
 
 const initialFilterState = {
-  date: formattedDate,
+  date,
   militaryTime: '12:00',
-  time: '12:00 PM',
+  time,
 };
 
 const initialState = {
@@ -20,6 +37,7 @@ const initialState = {
   view: 'time view',
   isLoading: false,
   waitTimes: [],
+  availableTimes: [],
   ...initialFilterState,
 };
 
@@ -113,8 +131,10 @@ const waitTimesSlice = createSlice({
       state.isLoading = true;
     },
     [getParkTimes.fulfilled]: (state, { payload }) => {
+      console.log(payload.availableTimes);
       state.isLoading = false;
-      state.waitTimes = payload;
+      state.waitTimes = payload.rides;
+      state.availableTimes = payload.times;
     },
     [getParkTimes.rejected]: (state) => {
       state.isLoading = false;
