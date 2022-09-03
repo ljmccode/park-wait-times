@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { getParkTimes, updatePark } from '../features/waitTimes/waitTimesSlice';
+import { updatePark } from '../features/waitTimes/waitTimesSlice';
 import WaitTimeItem from '../components/WaitTimeItem';
 import WaitTimeHeader from '../components/WaitTimeHeader';
 import Loader from './Loader';
