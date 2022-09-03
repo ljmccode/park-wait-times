@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { updateView } from '../features/waitTimes/waitTimesSlice';
+import { updateView, getParkTimes } from '../features/waitTimes/waitTimesSlice';
 import { updateNameSort } from '../features/waitTimes/sortSlice';
 import styled from 'styled-components';
 
@@ -10,6 +10,7 @@ const ChangeViewBtns = () => {
   const setTimeView = () => {
     dispatch(updateView('time view'));
     dispatch(updateNameSort());
+    dispatch(getParkTimes());
   };
 
   const setTableView = () => {
