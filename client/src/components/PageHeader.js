@@ -10,13 +10,15 @@ import {
 
 const PageHeader = () => {
   const dispatch = useDispatch();
-  const { view, currentRide, date } = useSelector((store) => store.waitTimes);
+  const { view, currentRide, date, time, currentPark } = useSelector(
+    (store) => store.waitTimes
+  );
 
   useEffect(() => {
     view === 'time view'
       ? dispatch(getParkTimes())
       : dispatch(viewRideInfo(currentRide));
-  }, [date]);
+  }, [date, time, currentPark]);
 
   return (
     <Header>
