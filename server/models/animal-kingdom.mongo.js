@@ -22,10 +22,9 @@ const AnimalKingdomSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('AnimalKingdomWaitTime', AnimalKingdomSchema);
-
-AnimalKingdomSchema.pre('save', function () {
-  let roundedTime = `${this.time.slice(0, 4)}0`;
-  console.log(roundedTime);
+AnimalKingdomSchema.pre('save', async function () {
+  let roundedTime = await `${this.time.slice(0, 4)}0`;
   this.time = roundedTime;
 });
+
+export default mongoose.model('AnimalKingdomWaitTime', AnimalKingdomSchema);
