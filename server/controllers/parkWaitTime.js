@@ -1,47 +1,45 @@
-import { getAllEpcotRides, getEpcotRide } from '../models/epcot.model.js';
-import { getAllHSRides, getHSRide } from '../models/hollywoodStudios.model.js';
-import { getAllMKRides, getMKRide } from '../models/magic-kingdom.model.js';
-import { getAllAKRides, getAKRide } from '../models/animal-kingdom.model.js';
+import AnimalKingdomWaitTime from '../models/animal-kingdom.mongo.js';
+import MagicKingdomWaitTime from '../models/magic-kingdom.mongo.js';
+import HollywoodWaitTime from '../models/hollywoodStudios.mongo.js';
+import EpcotWaitTime from '../models/epcot.mongo.js';
+import { getAllRides } from '../models/parks.model.js';
+import { getRideInfo } from '../models/parks.model.js';
 
 export const httpGetAllRides = async (req, res) => {
   const { time, date, sort } = req.query;
   const { park } = req.params;
+  let results;
   if (park === 'epcot') {
-    const rides = await getAllEpcotRides(time, date, sort);
-    return res.status(200).json(rides);
+    results = await getAllRides(time, date, sort, EpcotWaitTime);
   }
-
   if (park === 'hollywood-studios') {
-    const rides = await getAllHSRides(time, date, sort);
-    return res.status(200).json(rides);
+    results = await getAllRides(time, date, sort, HollywoodWaitTime);
   }
   if (park === 'magic-kingdom') {
-    const rides = await getAllMKRides(time, date, sort);
-    return res.status(200).json(rides);
+    results = await getAllRides(time, date, sort, MagicKingdomWaitTime);
   }
   if (park === 'animal-kingdom') {
-    const rides = await getAllAKRides(time, date, sort);
-    return res.status(200).json(rides);
+    results = await getAllRides(time, date, sort, AnimalKingdomWaitTime);
   }
+  return res.status(200).json(results);
 };
 
 export const httpGetRide = async (req, res) => {
   const { park, ride } = req.params;
   const { sort, date } = req.query;
+  const rideName = decodeURIComponent(ride);
+  let results;
   if (park === 'epcot') {
-    const rideInfo = await getEpcotRide(decodeURIComponent(ride), date, sort);
-    return res.status(200).json(rideInfo);
+    results = await getRideInfo(rideName, date, sort, EpcotWaitTime);
   }
   if (park === 'hollywood-studios') {
-    const rideInfo = await getHSRide(decodeURIComponent(ride), date, sort);
-    return res.status(200).json(rideInfo);
+    results = await getRideInfo(rideName, date, sort, HollywoodWaitTime);
   }
   if (park === 'magic-kingdom') {
-    const rideInfo = await getMKRide(decodeURIComponent(ride), date, sort);
-    return res.status(200).json(rideInfo);
+    results = await getRideInfo(rideName, date, sort, MagicKingdomWaitTime);
   }
   if (park === 'animal-kingdom') {
-    const rideInfo = await getAKRide(decodeURIComponent(ride), date, sort);
-    return res.status(200).json(rideInfo);
+    results = await getRideInfo(rideName, date, sort, AnimalKingdomWaitTime);
   }
+  return res.status(200).json(results);
 };
