@@ -131,7 +131,6 @@ const waitTimesSlice = createSlice({
       state.isLoading = true;
     },
     [getParkTimes.fulfilled]: (state, { payload }) => {
-      console.log(payload.availableTimes);
       state.isLoading = false;
       state.waitTimes = payload.rides;
       state.availableTimes = payload.times;

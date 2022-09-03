@@ -16,7 +16,9 @@ const getWaitTimeData = async () => {
   );
   if (formattedTime < 7) {
     console.log(
-      `parks are closed at ${new Date().toLocaleTimeString()} Central Time`
+      `parks are closed at ${moment(new Date())
+        .tz('America/Chicago')
+        .format('hh:mm')} Central Time`
     );
     return;
   }
