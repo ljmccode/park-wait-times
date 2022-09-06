@@ -20,6 +20,7 @@ export const getAKWaitTimes = () => {
     .then(filterRides)
     .then(mapRides)
     .then(pushToDatabase)
+    .then(() => console.log('pushed to AK database!'))
     .catch((error) => {
       console.error(error);
     });

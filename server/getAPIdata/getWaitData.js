@@ -32,7 +32,10 @@ const getWaitTimeData = async () => {
       .tz('America/Chicago')
       .format('hh:mm')} Central Time`
   );
-  mongoose.disconnect();
+  mongoose.connection.close(function () {
+    console.log('connection closed successfully');
+    process.exit(1);
+  });
 };
 
 getWaitTimeData();
