@@ -9,6 +9,7 @@ const ChangeViewBtns = () => {
 
   const setTimeView = () => {
     dispatch(updateView('time view'));
+
     dispatch(updateNameSort());
     dispatch(getParkTimes());
   };
@@ -19,6 +20,14 @@ const ChangeViewBtns = () => {
 
   const setGraphView = () => {
     dispatch(updateView('graph view'));
+    scrollToTop();
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (
