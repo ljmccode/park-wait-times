@@ -23,6 +23,7 @@ const getWaitTimeData = async () => {
     );
     return;
   }
+  console.log('about to call APIs');
   await getHollywoodWaitTimes();
   await getEpcotWaitTimes();
   await getMKWaitTimes();
@@ -32,10 +33,6 @@ const getWaitTimeData = async () => {
       .tz('America/Chicago')
       .format('hh:mm')} Central Time`
   );
-  mongoose.connection.close(function () {
-    console.log('connection closed successfully');
-    process.exit(1);
-  });
 };
 
 getWaitTimeData();

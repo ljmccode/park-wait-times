@@ -1,4 +1,5 @@
 import moment from 'moment';
+import mongoose from 'mongoose';
 import AnimalKingdomWaitTime from '../models/animal-kingdom.mongo.js';
 import { filterRides, mapRides } from '../utils/rideHelpers.js';
 
@@ -21,6 +22,12 @@ export const getAKWaitTimes = () => {
     .then(mapRides)
     .then(pushToDatabase)
     .then(() => console.log('pushed to AK database!'))
+    .then(() =>
+      mongoose.connection.close(function () {
+        console.log('connection closed successfully');
+        process.exit(1);
+      })
+    )
     .catch((error) => {
       console.error(error);
     });
