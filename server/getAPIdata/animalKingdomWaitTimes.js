@@ -22,12 +22,12 @@ export const getAKWaitTimes = () => {
     .then(mapRides)
     .then(pushToDatabase)
     .then(() => console.log('pushed to AK database!'))
-    .then(() =>
-      mongoose.connection.close(function () {
-        console.log('connection closed successfully');
-        process.exit(1);
-      })
-    )
+    // .then(() =>
+    //   mongoose.connection.close(function () {
+    //     console.log('connection closed successfully');
+    //     process.exit(1);
+    //   })
+    // )
     .catch((error) => {
       console.error(error);
     });
