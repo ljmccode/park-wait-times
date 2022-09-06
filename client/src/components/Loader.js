@@ -19,6 +19,7 @@ const LoaderComponent = styled.div`
   top: 50%;
   left: 40%;
   margin-left: 10%;
+  margin-top: 1rem;
   transform: translate3d(-50%, -50%, 0);
 
   .dot {
