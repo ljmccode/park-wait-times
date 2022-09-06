@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export const connectDB = (url) => {
+export const connectDB = async (url) => {
   console.log('connecting to database!');
-  return mongoose.connect(url);
+  return await mongoose.connect(url);
 };
