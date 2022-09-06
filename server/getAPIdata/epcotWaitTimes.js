@@ -11,12 +11,12 @@ const pushToDatabase = (rides) => {
     const currentDate = new Date();
     const time = moment(currentDate).tz('America/New_York').format('HH:mm');
     const date = moment(currentDate).tz('America/New_York').format('L');
-    EpcotWaitTime.create({ ...ride, date, time });
+    return EpcotWaitTime.create({ ...ride, date, time });
   });
 };
 
 export const getEpcotWaitTimes = () => {
-  Epcot.GetWaitTimes()
+  return Epcot.GetWaitTimes()
     .then(filterRides)
     .then(mapRides)
     .then(pushToDatabase)

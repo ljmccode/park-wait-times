@@ -11,12 +11,12 @@ const pushToDatabase = (rides) => {
     const currentDate = new Date();
     const time = moment(currentDate).tz('America/New_York').format('HH:mm');
     const date = moment(currentDate).tz('America/New_York').format('L');
-    MagicKingdomWaitTime.create({ ...ride, date, time });
+    return MagicKingdomWaitTime.create({ ...ride, date, time });
   });
 };
 
 export const getMKWaitTimes = () => {
-  MagicKingdom.GetWaitTimes()
+  return MagicKingdom.GetWaitTimes()
     .then(filterRides)
     .then(mapRides)
     .then(pushToDatabase)
