@@ -11,7 +11,7 @@ const pushToDatabase = (rides) => {
     const currentDate = new Date();
     const time = moment(currentDate).tz('America/New_York').format('HH:mm');
     const date = moment(currentDate).tz('America/New_York').format('L');
-    return EpcotWaitTime.create({ ...ride, date, time });
+    EpcotWaitTime.create({ ...ride, date, time });
   });
 };
 

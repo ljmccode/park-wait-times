@@ -12,25 +12,16 @@ const pushToDatabase = (rides) => {
     const currentDate = new Date();
     const time = moment(currentDate).tz('America/New_York').format('HH:mm');
     const date = moment(currentDate).tz('America/New_York').format('L');
-    return AnimalKingdomWaitTime.create({ ...ride, date, time });
+    AnimalKingdomWaitTime.create({ ...ride, date, time });
   });
 };
 
 export const getAKWaitTimes = () => {
-  return (
-    AnimalKingdom.GetWaitTimes()
-      .then(filterRides)
-      .then(mapRides)
-      .then(pushToDatabase)
-      .then(() => console.log('pushed to AK database!'))
-      // .then(() =>
-      //   mongoose.connection.close(function () {
-      //     console.log('connection closed successfully');
-      //     process.exit(1);
-      //   })
-      // )
-      .catch((error) => {
-        console.error(error);
-      })
-  );
+  return AnimalKingdom.GetWaitTimes()
+    .then(filterRides)
+    .then(mapRides)
+    .then(pushToDatabase)
+    .catch((error) => {
+      console.error(error);
+    });
 };

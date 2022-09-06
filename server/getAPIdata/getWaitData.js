@@ -63,12 +63,6 @@ connection
   .then(checkIfOpen)
   .then(getHollywoodWaitTimes)
   .then(getEpcotWaitTimes)
-  .then(getMKWaitTimes)
   .then(getAKWaitTimes)
-  .then(() =>
-    mongoose.connection.close(function () {
-      console.log('connection closed successfully');
-      process.exit(1);
-    })
-  )
+  .then(getMKWaitTimes)
   .catch((error) => console.log(error));
