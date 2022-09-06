@@ -47,7 +47,7 @@ const Header = styled.div`
     color: var(--primary-600);
     font-weight: bold;
     letter-spacing: var(--letterSpacing);
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-align: center;
   }
 
