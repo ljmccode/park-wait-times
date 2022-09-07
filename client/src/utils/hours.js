@@ -1,3 +1,6 @@
+import moment from 'moment';
+import 'moment-timezone';
+
 export const getFloridaTime = () => {
   const currentDate = new Date();
   const floridaTime = currentDate.toLocaleString('en-US', {
@@ -7,6 +10,15 @@ export const getFloridaTime = () => {
   let [hour, amPm] = floridaTime.split(' ');
   hour = Number(hour);
   return { hour, amPm };
+};
+
+export const getDateAndTime = () => {
+  const { hour, amPm } = getFloridaTime();
+  const today = moment(new Date()).tz('America/New_York');
+  return {
+    time: `${hour}:00 ${amPm}`,
+    date: today.format('MM/DD/YYYY'),
+  };
 };
 
 export const convertMilitary = (time) => {

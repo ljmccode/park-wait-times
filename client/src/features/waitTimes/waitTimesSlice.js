@@ -1,17 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getParkTimesThunk, viewRideInfoThunk } from './waitTimesThunk';
-import { getFloridaTime } from '../../utils/hours';
-import moment from 'moment';
-import 'moment-timezone';
-
-const getDateAndTime = () => {
-  const { hour, amPm } = getFloridaTime();
-  const today = moment(new Date()).tz('America/New_York');
-  return {
-    time: `${hour}:00 ${amPm}`,
-    date: today.format('MM/DD/YYYY'),
-  };
-};
+import { getDateAndTime } from '../../utils/hours';
 
 const { date, time } = getDateAndTime();
 
