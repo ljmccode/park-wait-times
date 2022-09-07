@@ -7,16 +7,6 @@ import 'moment-timezone';
 const getDateAndTime = () => {
   const { hour, amPm } = getFloridaTime();
   const today = moment(new Date()).tz('America/New_York');
-  const yesterday = moment(new Date())
-    .tz('America/New_York')
-    .subtract(1, 'day');
-
-  if (amPm === 'AM' && hour < 7) {
-    return {
-      time: '11:00 PM',
-      date: yesterday.format('MM/DD/YYYY'),
-    };
-  }
   return {
     time: `${hour}:00 ${amPm}`,
     date: today.format('MM/DD/YYYY'),
@@ -38,6 +28,7 @@ const initialState = {
   isLoading: false,
   waitTimes: [],
   availableTimes: [],
+  isParkOpen: true,
   ...initialFilterState,
 };
 
@@ -125,6 +116,9 @@ const waitTimesSlice = createSlice({
     changeDate: (state, { payload }) => {
       state.date = payload;
     },
+    updateParkStatus: (state, { payload }) => {
+      state.isParkOpen = payload;
+    },
   },
   extraReducers: {
     [getParkTimes.pending]: (state) => {
@@ -160,6 +154,7 @@ export const {
   updatePark,
   updateView,
   changeDate,
+  updateParkStatus,
 } = waitTimesSlice.actions;
 
 export default waitTimesSlice.reducer;
