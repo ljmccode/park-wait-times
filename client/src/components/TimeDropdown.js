@@ -9,7 +9,9 @@ import { convertMilitary, convertRegularTime } from '../utils/hours';
 
 const TimeDropdown = () => {
   const dispatch = useDispatch();
-  const { time, availableTimes } = useSelector((store) => store.waitTimes);
+  const { time, availableTimes, isParkOpen } = useSelector(
+    (store) => store.waitTimes
+  );
   const dropdownTimes = availableTimes
     ? availableTimes.map((time) => convertRegularTime(time))
     : ['11:00 AM'];
@@ -26,18 +28,16 @@ const TimeDropdown = () => {
   }, [time]);
 
   return (
-    <>
-      <Select
-        name={'time'}
-        value={
-          dropdownTimes.includes(time)
-            ? time
-            : dropdownTimes[dropdownTimes.length - 1]
-        }
-        handleChange={handleTimeInput}
-        options={dropdownTimes}
-      />
-    </>
+    <Select
+      name={'time'}
+      value={
+        dropdownTimes.includes(time)
+          ? time
+          : dropdownTimes[dropdownTimes.length - 1]
+      }
+      handleChange={handleTimeInput}
+      options={dropdownTimes}
+    />
   );
 };
 
