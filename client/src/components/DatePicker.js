@@ -9,7 +9,7 @@ const DatePickerComponent = () => {
   const dispatch = useDispatch();
   const { date } = useSelector((store) => store.waitTimes);
   const displayDate = new Date(date);
-  const startDate = new Date('August, 23, 2022');
+  const startDate = new Date('September, 6, 2022');
 
   const setChangeDate = (date) => {
     const formattedDate = moment(date).format('MM/DD/YYYY');
