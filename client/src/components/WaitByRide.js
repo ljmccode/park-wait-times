@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import WaitTimeItem from './WaitTimeItem';
 import WaitTimeHeader from './WaitTimeHeader';
 import ChangeViewBtns from './ChangeViewBtns';
-import NoData from './NoData';
 import Loader from './Loader';
 import Chart from './Chart';
 
 const WaitByRide = () => {
-  const { waitTimes, time, view, isLoading } = useSelector(
+  const { waitTimes, view, isLoading } = useSelector(
     (store) => store.waitTimes
   );
 
@@ -16,12 +15,7 @@ const WaitByRide = () => {
     return <Loader />;
   }
 
-  return waitTimes.length === 0 ? (
-    <>
-      <NoData time={time} />
-      <button type='button'>Back to Park</button>
-    </>
-  ) : view === 'graph view' ? (
+  return view === 'graph view' ? (
     <>
       <Chart />
       <ChangeViewBtns />
