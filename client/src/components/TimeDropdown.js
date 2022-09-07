@@ -9,9 +9,7 @@ import { convertMilitary, convertRegularTime } from '../utils/hours';
 
 const TimeDropdown = () => {
   const dispatch = useDispatch();
-  const { time, availableTimes, isParkOpen } = useSelector(
-    (store) => store.waitTimes
-  );
+  const { time, availableTimes } = useSelector((store) => store.waitTimes);
   const dropdownTimes = availableTimes
     ? availableTimes.map((time) => convertRegularTime(time))
     : ['11:00 AM'];
