@@ -11,9 +11,9 @@ const getDateAndTime = () => {
     .tz('America/New_York')
     .subtract(1, 'day');
 
-  if (amPm === 'AM' && hour < 7 && hour !== 12) {
+  if (amPm === 'AM' && hour < 7) {
     return {
-      time: '9:00 PM',
+      time: '11:00 PM',
       date: yesterday.format('MM/DD/YYYY'),
     };
   }
