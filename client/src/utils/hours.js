@@ -30,5 +30,8 @@ export const convertRegularTime = (time) => {
     hours = hours - 12;
     return `${hours}:00 PM`;
   }
+  if (hours === 12) {
+    return `${hours}:00 PM`;
+  }
   return `${hours}:00 AM`;
 };
