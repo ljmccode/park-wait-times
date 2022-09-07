@@ -6,13 +6,20 @@ import TimeDropdown from './TimeDropdown';
 import {
   getParkTimes,
   viewRideInfo,
+  updateParkStatus,
 } from '../features/waitTimes/waitTimesSlice';
 
 const PageHeader = () => {
   const dispatch = useDispatch();
-  const { view, currentRide, date, time, currentPark } = useSelector(
-    (store) => store.waitTimes
-  );
+  const {
+    view,
+    currentRide,
+    date,
+    time,
+    currentPark,
+    militaryTime,
+    isParkOpen,
+  } = useSelector((store) => store.waitTimes);
 
   useEffect(() => {
     view === 'time view'
@@ -20,16 +27,25 @@ const PageHeader = () => {
       : dispatch(viewRideInfo(currentRide));
   }, [date, time, currentPark]);
 
-  return (
-    <Header>
-      {view === 'time view' ? (
-        <TimeDropdown />
-      ) : (
-        <p className='ride-name'>{currentRide}</p>
-      )}
-      <DatePickerComponent />
-    </Header>
-  );
+  useEffect(() => {
+    const hour = Number(militaryTime.slice(0, 2));
+    hour < 7
+      ? dispatch(updateParkStatus(false))
+      : dispatch(updateParkStatus(true));
+  }, [militaryTime, date]);
+
+  if (isParkOpen) {
+    return (
+      <Header>
+        {view === 'time view' ? (
+          <TimeDropdown />
+        ) : (
+          <p className='ride-name'>{currentRide}</p>
+        )}
+        <DatePickerComponent />
+      </Header>
+    );
+  }
 };
 
 export default PageHeader;
