@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeDate } from '../features/waitTimes/waitTimesSlice';
 import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
+import { getDateAndTime } from '../utils/hours';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
@@ -10,6 +11,7 @@ const DatePickerComponent = () => {
   const { date } = useSelector((store) => store.waitTimes);
   const displayDate = new Date(date);
   const startDate = new Date('September, 6, 2022');
+  const todayDate = getDateAndTime().date;
 
   const setChangeDate = (date) => {
     const formattedDate = moment(date).format('MM/DD/YYYY');
@@ -23,7 +25,7 @@ const DatePickerComponent = () => {
         selected={displayDate}
         onChange={(date) => setChangeDate(date)}
         minDate={startDate}
-        maxDate={new Date(date)}
+        maxDate={todayDate}
       />
     </DateDropdown>
   );
