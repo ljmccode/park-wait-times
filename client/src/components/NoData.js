@@ -28,9 +28,7 @@ const NoData = () => {
     <Wrapper>
       <p>
         Shucks, the parks are closed!{' '}
-        <button onClick={yesterdayTimes}>
-          Check wait times for another day
-        </button>
+        <button onClick={yesterdayTimes}>Check earlier wait times</button>
       </p>
       <img src={sadMickey} alt='Sad Mickey' />
     </Wrapper>
