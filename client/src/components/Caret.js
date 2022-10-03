@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 
 const Caret = () => {
   const { nameAscending, waitAscending, statusAscending, timeAscending } =
-    useSelector((store) => store.sort);
+    useSelector((store) => store.waitTimes);
   return nameAscending || waitAscending || statusAscending || timeAscending ? (
-    <AiFillCaretDown className='caret' />
-  ) : (
     <AiFillCaretUp className='caret' />
+  ) : (
+    <AiFillCaretDown className='caret' />
   );
 };
 
