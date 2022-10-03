@@ -3,10 +3,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import DatePickerComponent from './DatePicker';
 import TimeDropdown from './TimeDropdown';
+import { useLocation } from 'react-router-dom';
+import {
+  getDateAndTime,
+  convertMilitary,
+  convertRegularTime,
+} from '../utils/hours';
 import {
   getParkTimes,
-  viewRideInfo,
   updateParkStatus,
+  getCurrentWaitTimes,
+  updatePark,
+  updateTime,
+  sortWaitTimes,
 } from '../features/waitTimes/waitTimesSlice';
 
 const PageHeader = () => {
@@ -16,23 +25,49 @@ const PageHeader = () => {
     currentRide,
     date,
     time,
-    currentPark,
-    militaryTime,
     isParkOpen,
+    currentWait,
+    availableTimes,
   } = useSelector((store) => store.waitTimes);
 
-  useEffect(() => {
-    view === 'time view'
-      ? dispatch(getParkTimes())
-      : dispatch(viewRideInfo(currentRide));
-  }, [date, time, currentPark]);
+  const location = useLocation();
+  const url = location.pathname;
+  const park = url.split('/')[1];
 
   useEffect(() => {
-    const hour = Number(militaryTime.slice(0, 2));
-    hour < 7
-      ? dispatch(updateParkStatus(false))
-      : dispatch(updateParkStatus(true));
-  }, [militaryTime, date]);
+    dispatch(updatePark(park));
+  }, [park]);
+
+  useEffect(() => {
+    const { date: currentDate } = getDateAndTime();
+    const fetchData = async () => {
+      try {
+        await dispatch(getParkTimes());
+        if (date !== currentDate) {
+          const newTime = convertRegularTime(availableTimes[0]);
+          await dispatch(updateTime({ time: newTime }));
+        }
+        if (currentWait.length === 0 || time === 'Current Time') {
+          await dispatch(getCurrentWaitTimes());
+        }
+        dispatch(sortWaitTimes());
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [date, park]);
+
+  useEffect(() => {
+    if (time === 'Current Time') {
+      const { time: currentTime } = getDateAndTime();
+      const military = convertMilitary(currentTime);
+      const hour = Number(military.slice(0, 2));
+      hour < 7
+        ? dispatch(updateParkStatus(false))
+        : dispatch(updateParkStatus(true));
+    }
+  }, [time]);
 
   if (isParkOpen) {
     return (
