@@ -1,23 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Caret from './Caret';
+
+import styled from 'styled-components';
 import {
   updateNameSort,
   updateTimeSort,
   updateStatusSort,
   updateWaitSort,
-} from '../features/waitTimes/sortSlice';
-import Caret from './Caret';
-
-import styled from 'styled-components';
-import {
-  getParkTimes,
-  viewRideInfo,
+  sortWaitTimes,
 } from '../features/waitTimes/waitTimesSlice';
 
 const WaitTimeHeader = ({ view }) => {
   const dispatch = useDispatch();
-  const { currentSort } = useSelector((store) => store.sort);
-  const { currentRide } = useSelector((store) => store.waitTimes);
+  const { currentSort } = useSelector((store) => store.waitTimes);
   const [width, setWidth] = useState(window.innerWidth);
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -30,28 +26,22 @@ const WaitTimeHeader = ({ view }) => {
 
   const startSortName = () => {
     dispatch(updateNameSort());
-    dispatch(getParkTimes());
+    dispatch(sortWaitTimes());
   };
 
   const startTimeSort = () => {
     dispatch(updateTimeSort());
-    dispatch(viewRideInfo(currentRide));
+    dispatch(sortWaitTimes());
   };
 
   const startWaitSort = () => {
     dispatch(updateWaitSort());
-    if (view === 'time view') {
-      return dispatch(getParkTimes());
-    }
-    dispatch(viewRideInfo(currentRide));
+    dispatch(sortWaitTimes());
   };
 
   const startStatusSort = () => {
     dispatch(updateStatusSort());
-    if (view === 'time view') {
-      return dispatch(getParkTimes());
-    }
-    dispatch(viewRideInfo(currentRide));
+    dispatch(sortWaitTimes());
   };
 
   return (
