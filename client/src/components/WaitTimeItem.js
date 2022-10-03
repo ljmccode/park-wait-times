@@ -1,25 +1,34 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { viewRideInfo } from '../features/waitTimes/waitTimesSlice';
-import { updateTimeSort } from '../features/waitTimes/sortSlice';
+import {
+  updateTimeSort,
+  sortWaitTimes,
+  updateView,
+} from '../features/waitTimes/waitTimesSlice';
 import { convertRegularTime } from '../utils/hours';
 import styled from 'styled-components';
 
 const WaitTimeItem = ({ ride }) => {
   const dispatch = useDispatch();
-  const { view } = useSelector((store) => store.waitTimes);
+  const { view, currentPark } = useSelector((store) => store.waitTimes);
   const { name, waitTime, status, time } = ride;
   const time12hr = convertRegularTime(time);
+  const urlName = encodeURIComponent(name);
 
   const timeSort = () => {
+    dispatch(updateView({ view: 'ride view', currentSort: 'time' }));
     dispatch(updateTimeSort());
-    dispatch(viewRideInfo(name));
+    dispatch(sortWaitTimes());
   };
   return (
     <WaitTimeRow>
       {view === 'time view' ? (
-        <Link to='#' className='name' onClick={() => timeSort()}>
+        <Link
+          to={`/${currentPark}/${urlName}`}
+          className='name'
+          onClick={() => timeSort()}
+        >
           <span>{name}</span>
         </Link>
       ) : (
@@ -54,6 +63,7 @@ const WaitTimeRow = styled.div`
 
   .name {
     width: 50%;
+    color: var(--primary-700);
   }
 
   .name:hover {
