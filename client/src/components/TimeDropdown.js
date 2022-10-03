@@ -5,14 +5,21 @@ import {
   handleChange,
   updateMilitaryTime,
 } from '../features/waitTimes/waitTimesSlice';
-import { convertMilitary, convertRegularTime } from '../utils/hours';
+import {
+  convertMilitary,
+  convertRegularTime,
+  getDateAndTime,
+} from '../utils/hours';
 
 const TimeDropdown = () => {
   const dispatch = useDispatch();
-  const { time, availableTimes } = useSelector((store) => store.waitTimes);
-  const dropdownTimes = availableTimes
-    ? availableTimes.map((time) => convertRegularTime(time))
-    : ['11:00 AM'];
+  const { time, availableTimes, date } = useSelector(
+    (store) => store.waitTimes
+  );
+  const dropdownTimes =
+    availableTimes && availableTimes.map((time) => convertRegularTime(time));
+  const dropdownWithCurrent = ['Current Time'].concat(dropdownTimes);
+  const { date: currentDate } = getDateAndTime();
 
   const handleTimeInput = (e) => {
     const name = e.target.name;
@@ -21,20 +28,22 @@ const TimeDropdown = () => {
   };
 
   useEffect(() => {
-    const militaryTime = convertMilitary(time);
-    dispatch(updateMilitaryTime(militaryTime));
+    if (time !== 'Current Time') {
+      const militaryTime = convertMilitary(time);
+      dispatch(updateMilitaryTime(militaryTime));
+    }
   }, [time]);
 
   return (
     <Select
       name={'time'}
       value={
-        dropdownTimes.includes(time)
+        dropdownWithCurrent.includes(time)
           ? time
           : dropdownTimes[dropdownTimes.length - 1]
       }
       handleChange={handleTimeInput}
-      options={dropdownTimes}
+      options={currentDate === date ? dropdownWithCurrent : dropdownTimes}
     />
   );
 };
