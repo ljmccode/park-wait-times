@@ -1,14 +1,18 @@
-const getAvailableTimes = async (date, model) => {
-  const results = await model.find({ date });
-  return [...new Set(results.map((ride) => ride.time))];
-};
+import { filterRides, mapRides } from '../utils/rideHelpers.js';
 
-export const getAllRides = async (time, date, sort, model) => {
-  const rides = await model.find({ time, date }).sort(`${sort}`);
-  const times = await getAvailableTimes(date, model);
+export const getAllRides = async (date, model) => {
+  const rides = await model.find({ date }).sort('name');
+  const times = [...new Set(rides.map((ride) => ride.time))];
   return { rides, times };
 };
 
-export const getRideInfo = async (rideName, date, sort, model) => {
-  return await model.find({ name: rideName, date: date }).sort(`${sort}`);
+export const getCurrentWaitTimes = (park) => {
+  return park
+    .GetWaitTimes()
+    .then(filterRides)
+    .then(mapRides)
+    .then((result) => result)
+    .catch((error) => {
+      console.error(error);
+    });
 };
