@@ -119,26 +119,26 @@ const Header = styled.div`
     border: transparent;
     border-radius: var(--borderRadius);
     letter-spacing: var(--letterSpacing);
-    padding: 0.5rem 0.8rem;
+    padding: 0.5rem;
     box-shadow: var(--shadow-2);
     border-radius: 1rem;
     display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
+    width: 145px;
   }
   .select-input:hover {
     box-shadow: var(--shadow-3);
   }
   .select {
     margin: 0 auto;
+    max-width: 133px;
   }
 
   @media screen and (min-width: 668px) {
     .filter-btn {
       font-size: 1.25rem;
-    }
-    .select-input {
-      padding: 0.5rem 1.5rem;
     }
     .ride-name {
       font-size: 1.2rem;
