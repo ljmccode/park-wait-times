@@ -22,12 +22,12 @@ ChartJS.register(
   PointElement
 );
 
-const Chart = () => {
-  const { waitTimes, currentRide } = useSelector((store) => store.waitTimes);
-  const labels = waitTimes.map((data) => {
+const Chart = ({ filteredRide }) => {
+  const { currentRide } = useSelector((store) => store.waitTimes);
+  const labels = filteredRide.map((data) => {
     return convertRegularTime(data.time);
   });
-  const waitData = waitTimes.map((data) => {
+  const waitData = filteredRide.map((data) => {
     return data.waitTime;
   });
   const max = Math.max(...waitData) + 10;
