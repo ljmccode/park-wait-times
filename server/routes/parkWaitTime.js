@@ -1,9 +1,12 @@
 import express from 'express';
 const router = express.Router();
 
-import { httpGetAllRides, httpGetRide } from '../controllers/parkWaitTime.js';
+import {
+  httpGetAllRides,
+  httpGetCurrentWait,
+} from '../controllers/parkWaitTime.js';
 
-router.use('/:park/:ride', httpGetRide);
+router.use('/currentWait/:park', httpGetCurrentWait);
 router.use('/:park', httpGetAllRides);
 
 export default router;

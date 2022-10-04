@@ -1,25 +1,26 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { updateView, getParkTimes } from '../features/waitTimes/waitTimesSlice';
-import { updateNameSort } from '../features/waitTimes/sortSlice';
+import { Link } from 'react-router-dom';
+import {
+  updateView,
+  updateNameSort,
+} from '../features/waitTimes/waitTimesSlice';
 import styled from 'styled-components';
 
 const ChangeViewBtns = () => {
   const dispatch = useDispatch();
-  const { view } = useSelector((store) => store.waitTimes);
+  const { view, currentPark } = useSelector((store) => store.waitTimes);
 
   const setTimeView = () => {
-    dispatch(updateView('time view'));
-
-    dispatch(updateNameSort());
-    dispatch(getParkTimes());
+    dispatch(updateView({ view: 'time view', currentSort: 'name' }));
+    dispatch(updateNameSort(true));
   };
 
   const setTableView = () => {
-    dispatch(updateView('ride view'));
+    dispatch(updateView({ view: 'ride view', currentSort: 'time' }));
   };
 
   const setGraphView = () => {
-    dispatch(updateView('graph view'));
+    dispatch(updateView({ view: 'graph view', currentSort: 'time' }));
     scrollToTop();
   };
 
@@ -50,13 +51,13 @@ const ChangeViewBtns = () => {
           Table View
         </button>
       )}
-      <button
-        type='button'
+      <Link
+        to={`/${currentPark}`}
         className='btn-hipster btn return-btn'
         onClick={() => setTimeView()}
       >
         Back to Park
-      </button>
+      </Link>
     </ReturnButton>
   );
 };

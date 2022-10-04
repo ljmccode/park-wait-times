@@ -19,7 +19,7 @@ const NoData = () => {
     .format('MM/DD/YYYY');
 
   const yesterdayTimes = () => {
-    dispatch(updateTime({ time: '4:00 PM' }));
+    dispatch(updateTime({ time: '12:00 PM' }));
     dispatch(changeDate(yesterday));
     dispatch(updateParkStatus(true));
   };
@@ -28,9 +28,7 @@ const NoData = () => {
     <Wrapper>
       <p>
         Shucks, the parks are closed!{' '}
-        <button onClick={yesterdayTimes}>
-          Check wait times for another day
-        </button>
+        <button onClick={yesterdayTimes}>Check earlier wait times</button>
       </p>
       <img src={sadMickey} alt='Sad Mickey' />
     </Wrapper>
@@ -49,7 +47,7 @@ const Wrapper = styled.div`
     button {
       border: none;
       background: none;
-      color: var(--green-600);
+      color: var(--primary-600);
       cursor: pointer;
       font-size: 1rem;
     }
@@ -68,6 +66,9 @@ const Wrapper = styled.div`
   @media screen and (min-width: 668px) {
     p {
       font-size: 1.5rem;
+      button {
+        font-size: 1.5rem;
+      }
     }
   }
 `;

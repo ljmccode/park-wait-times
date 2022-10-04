@@ -6,21 +6,20 @@ import akLogo from '../assets/images/animal-kingdom-grey.png';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  getParkTimes,
   updatePark,
   updateView,
+  restartSort,
 } from '../features/waitTimes/waitTimesSlice';
-import { restartSort } from '../features/waitTimes/sortSlice';
 
 const Parks = () => {
   const dispatch = useDispatch();
-  const { currentPark } = useSelector((store) => store.waitTimes);
+  const { currentPark, view } = useSelector((store) => store.waitTimes);
 
   const startUpdatePark = (parkName) => {
-    dispatch(updateView('time view'));
+    if (view !== 'time view') {
+      dispatch(updateView({ view: 'time view', currentSort: 'name' }));
+    }
     dispatch(updatePark(parkName));
-    dispatch(restartSort());
-    dispatch(getParkTimes());
   };
 
   return (

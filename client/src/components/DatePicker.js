@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import 'moment-timezone';
 
 const DatePickerComponent = () => {
   const dispatch = useDispatch();
   const { date } = useSelector((store) => store.waitTimes);
   const displayDate = new Date(date);
   const startDate = new Date('September, 6, 2022');
+  const todayDate = moment(new Date()).tz('America/New_York');
 
   const setChangeDate = (date) => {
     const formattedDate = moment(date).format('MM/DD/YYYY');
@@ -23,7 +25,7 @@ const DatePickerComponent = () => {
         selected={displayDate}
         onChange={(date) => setChangeDate(date)}
         minDate={startDate}
-        maxDate={new Date(date)}
+        maxDate={new Date(todayDate)}
       />
     </DateDropdown>
   );

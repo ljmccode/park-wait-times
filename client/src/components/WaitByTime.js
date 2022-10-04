@@ -1,38 +1,57 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { updatePark } from '../features/waitTimes/waitTimesSlice';
+import {
+  getCurrentWaitTimes,
+  sortWaitTimes,
+} from '../features/waitTimes/waitTimesSlice';
 import WaitTimeItem from '../components/WaitTimeItem';
 import WaitTimeHeader from '../components/WaitTimeHeader';
 import Loader from './Loader';
 import NoData from '../components/NoData';
 import styled from 'styled-components';
+import { convertMilitary } from '../utils/hours';
 
 const WaitByTime = () => {
   const dispatch = useDispatch();
-  const { waitTimes, time, view, isLoading } = useSelector(
-    (store) => store.waitTimes
-  );
+  const { sortedWaitTimes, currentWait, time, view, isLoading, isParkOpen } =
+    useSelector((store) => store.waitTimes);
+  const military = convertMilitary(time);
 
-  const location = useLocation();
-  const url = location.pathname;
-  const park = url.split('/')[1];
+  const filteredWaitTimes = () => {
+    if (time === 'Current Time') {
+      return sortedWaitTimes;
+    } else {
+      return sortedWaitTimes.filter((ride) => ride.time === military);
+    }
+  };
 
   useEffect(() => {
-    dispatch(updatePark(park));
-  }, [park]);
+    if (time === 'Current Time' && currentWait.length !== 0) {
+      const fetchData = async () => {
+        try {
+          await dispatch(getCurrentWaitTimes());
+          dispatch(sortWaitTimes());
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchData();
+    } else {
+      dispatch(sortWaitTimes());
+    }
+  }, [time]);
 
-  if (isLoading || !waitTimes) {
+  if (isLoading || !sortedWaitTimes) {
     return <Loader />;
   }
 
-  return waitTimes.length === 0 ? (
-    <NoData time={time} />
+  return !isParkOpen ? (
+    <NoData />
   ) : (
     <WaitContainer>
       <WaitTimeHeader view={view} />
-      {waitTimes.map((ride) => (
-        <WaitTimeItem key={ride._id} ride={ride} />
+      {filteredWaitTimes().map((ride, index) => (
+        <WaitTimeItem key={index} ride={ride} />
       ))}
     </WaitContainer>
   );
