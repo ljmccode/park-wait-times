@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -32,6 +33,17 @@ const Chart = ({ filteredRide }) => {
   });
   const max = Math.max(...waitData) + 10;
   const roundedMax = Math.ceil(max / 10) * 10;
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
   const options = {
     resonsiveness: true,

@@ -21,15 +21,9 @@ const ChangeViewBtns = () => {
 
   const setGraphView = () => {
     dispatch(updateView({ view: 'graph view', currentSort: 'time' }));
-    scrollToTop();
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
+ 
 
   return (
     <ReturnButton>
