@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 import {
   getDateAndTime,
   convertMilitary,
-  convertRegularTime,
 } from '../utils/hours';
 import {
   getParkTimes,
@@ -27,7 +26,6 @@ const PageHeader = () => {
     time,
     isParkOpen,
     currentWait,
-    availableTimes,
   } = useSelector((store) => store.waitTimes);
 
   const location = useLocation();
@@ -42,13 +40,12 @@ const PageHeader = () => {
     const { date: currentDate } = getDateAndTime();
     const fetchData = async () => {
       try {
-        await dispatch(getParkTimes());
+        dispatch(getParkTimes());
         if (date !== currentDate) {
-          const newTime = convertRegularTime(availableTimes[0]);
-          await dispatch(updateTime({ time: newTime }));
+          dispatch(updateTime({ time: '12:00 PM' }));
         }
         if (currentWait.length === 0 || time === 'Current Time') {
-          await dispatch(getCurrentWaitTimes());
+          dispatch(getCurrentWaitTimes());
         }
         dispatch(sortWaitTimes());
       } catch (error) {
@@ -57,6 +54,8 @@ const PageHeader = () => {
     };
     fetchData();
   }, [date, park]);
+
+
 
   useEffect(() => {
     if (time === 'Current Time') {

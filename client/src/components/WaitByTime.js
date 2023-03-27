@@ -29,7 +29,7 @@ const WaitByTime = () => {
     if (time === 'Current Time' && currentWait.length !== 0) {
       const fetchData = async () => {
         try {
-          await dispatch(getCurrentWaitTimes());
+          dispatch(getCurrentWaitTimes());
           dispatch(sortWaitTimes());
         } catch (error) {
           console.log(error);
