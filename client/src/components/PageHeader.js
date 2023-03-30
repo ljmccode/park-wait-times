@@ -40,7 +40,12 @@ const PageHeader = () => {
     const fetchData = async () => {
       try {
         dispatch(getParkTimes());
-        dispatch(updateTime({ time: '8:00 AM' }));
+
+        if (date !== currentDate) {
+          dispatch(updateTime({ time: '12:00 PM' }));
+        } else {
+          dispatch(updateTime({ time: '8:00 AM' }));
+        }
         if (currentWait.length === 0 || time === 'Current Time') {
           dispatch(getCurrentWaitTimes());
         }

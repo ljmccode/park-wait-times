@@ -31,7 +31,6 @@ const Wrapper = styled.div`
     width: 85vw;
     margin: 0 auto;
     padding: 2rem 0;
-    /* min-height: 100vh; */
     overflow: hidden;
   }
   .select-input {
