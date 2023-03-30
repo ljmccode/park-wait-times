@@ -44,8 +44,8 @@ const WaitByRide = () => {
     <>
       <WaitContainer>
         <WaitTimeHeader view={view} />
-        {filteredRide.map((ride, index) => (
-          <WaitTimeItem key={index} ride={ride} />
+        {filteredRide.map((ride) => (
+          <WaitTimeItem key={ride._id} ride={ride} />
         ))}
       </WaitContainer>
       <ChangeViewBtns />
