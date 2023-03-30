@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   updateView,
   updateNameSort,
@@ -8,11 +8,13 @@ import styled from 'styled-components';
 
 const ChangeViewBtns = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { view, currentPark } = useSelector((store) => store.waitTimes);
 
   const setTimeView = () => {
     dispatch(updateView({ view: 'time view', currentSort: 'name' }));
     dispatch(updateNameSort(true));
+    navigate(`/${currentPark}`)
   };
 
   const setTableView = () => {
@@ -45,13 +47,13 @@ const ChangeViewBtns = () => {
           Table View
         </button>
       )}
-      <Link
-        to={`/${currentPark}`}
-        className='btn-hipster btn return-btn'
-        onClick={() => setTimeView()}
-      >
-        Back to Park
-      </Link>
+        <button
+          type='button'
+          className='btn-hipster btn return-btn'
+          onClick={() => setTimeView()}
+        >
+          Back to Park
+        </button>
     </ReturnButton>
   );
 };
