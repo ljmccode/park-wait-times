@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import {
   updatePark,
   updateView,
-  restartSort,
 } from '../features/waitTimes/waitTimesSlice';
 
 const Parks = () => {
@@ -105,7 +104,7 @@ const ParksContainer = styled.div`
     p {
       margin: 0;
       color: red;
-      color: var(--grey-500);
+      color: var(--grey-600);
       text-align: center;
       font-size: 0.8rem;
       display: flex;

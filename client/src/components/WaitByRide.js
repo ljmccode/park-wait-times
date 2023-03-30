@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import WaitTimeItem from './WaitTimeItem';
 import WaitTimeHeader from './WaitTimeHeader';
@@ -8,7 +8,6 @@ import ChangeViewBtns from './ChangeViewBtns';
 import {
   setCurrentRide,
   updateView,
-  updatePark,
 } from '../features/waitTimes/waitTimesSlice';
 import Loader from './Loader';
 import Chart from './Chart';
@@ -18,34 +17,31 @@ const WaitByRide = () => {
   const { sortedWaitTimes, view, isLoading } = useSelector(
     (store) => store.waitTimes
   );
-  const location = useLocation();
-  const url = location.pathname;
-  const park = url.split('/')[1];
 
   const { ride } = useParams();
   const rideName = decodeURIComponent(ride);
   const filteredRide = sortedWaitTimes.filter((ride) => ride.name === rideName);
 
   useEffect(() => {
-    dispatch(updatePark(park));
     dispatch(updateView({ view: 'ride view', currentSort: 'time' }));
     dispatch(setCurrentRide(rideName));
   }, [ride]);
+  
   if (isLoading) {
     return <Loader />;
   }
 
   return view === 'graph view' ? (
     <>
-      <Chart filteredRide={filteredRide} />
+      <Chart filteredRide={filteredRide} ride={ride}/>
       <ChangeViewBtns />
     </>
   ) : (
     <>
       <WaitContainer>
         <WaitTimeHeader view={view} />
-        {filteredRide.map((ride, index) => (
-          <WaitTimeItem key={index} ride={ride} />
+        {filteredRide.map((ride) => (
+          <WaitTimeItem key={ride._id} ride={ride} />
         ))}
       </WaitContainer>
       <ChangeViewBtns />

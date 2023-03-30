@@ -4,12 +4,6 @@ import { getDateAndTime } from '../../utils/hours';
 
 const { date } = getDateAndTime();
 
-const initialFilterState = {
-  date,
-  militaryTime: '12:00',
-  time: 'Current Time',
-};
-
 const initialSortState = {
   nameAscending: true,
   timeAscending: false,
@@ -28,7 +22,9 @@ const initialState = {
   currentWait: [],
   availableTimes: [],
   isParkOpen: true,
-  ...initialFilterState,
+  date,
+  militaryTime: '12:00',
+  time: 'Current Time',
   ...initialSortState,
 };
 
@@ -181,7 +177,7 @@ const waitTimesSlice = createSlice({
       state.isLoading = true;
     },
     [getCurrentWaitTimes.fulfilled]: (state, { payload }) => {
-      const dataWithTime = payload
+      const dataWithTime = payload && payload
         .map((ride) => {
           ride.time = 'Current Time';
           return ride;

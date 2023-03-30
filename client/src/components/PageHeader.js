@@ -37,13 +37,10 @@ const PageHeader = () => {
   }, [park]);
 
   useEffect(() => {
-    const { date: currentDate } = getDateAndTime();
     const fetchData = async () => {
       try {
         dispatch(getParkTimes());
-        if (date !== currentDate) {
-          dispatch(updateTime({ time: '12:00 PM' }));
-        }
+        dispatch(updateTime({ time: '8:00 AM' }));
         if (currentWait.length === 0 || time === 'Current Time') {
           dispatch(getCurrentWaitTimes());
         }
@@ -56,15 +53,13 @@ const PageHeader = () => {
   }, [date, park]);
 
 
-
   useEffect(() => {
     if (time === 'Current Time') {
       const { time: currentTime } = getDateAndTime();
       const military = convertMilitary(currentTime);
       const hour = Number(military.slice(0, 2));
-      hour < 7
-        ? dispatch(updateParkStatus(false))
-        : dispatch(updateParkStatus(true));
+      if (isParkOpen && hour < 7) dispatch(updateParkStatus(false))
+      if (!isParkOpen && hour >= 7) dispatch(updateParkStatus(true))
     }
   }, [time]);
 
