@@ -13,7 +13,7 @@ import {
 
 const WaitTimeHeader = ({ view }) => {
   const dispatch = useDispatch();
-  const { currentSort } = useSelector((store) => store.waitTimes);
+  const { currentSort, nameAscending, waitAscending, statusAscending, timeAscending } = useSelector((store) => store.waitTimes);
   const [width, setWidth] = useState(window.innerWidth);
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -49,21 +49,21 @@ const WaitTimeHeader = ({ view }) => {
       {view === 'time view' ? (
         <div className='name-block' onClick={() => startSortName()}>
           <span>Name</span>
-          {currentSort === 'name' && <Caret />}
+          {currentSort === 'name' && <Caret ascending={nameAscending}/>}
         </div>
       ) : (
         <div className='time-block' onClick={() => startTimeSort()}>
           <span>Time</span>
-          {currentSort === 'time' && <Caret />}
+          {currentSort === 'time' && <Caret ascending={timeAscending}/>}
         </div>
       )}
       <div className='wait-block' onClick={() => startWaitSort()}>
         <span>Wait {width > 668 && <span>Time</span>}</span>
-        {currentSort === 'waitTime' && <Caret />}
+        {currentSort === 'waitTime' && <Caret ascending={waitAscending}/>}
       </div>
       <div className='status-block' onClick={() => startStatusSort()}>
         <span>Status</span>
-        {currentSort === 'status' && <Caret />}
+        {currentSort === 'status' && <Caret ascending={statusAscending}/>}
       </div>
     </HeaderStyles>
   );
