@@ -177,7 +177,7 @@ const waitTimesSlice = createSlice({
       state.isLoading = true;
     },
     [getCurrentWaitTimes.fulfilled]: (state, { payload }) => {
-      const dataWithTime = payload
+      const dataWithTime = payload && payload
         .map((ride) => {
           ride.time = 'Current Time';
           return ride;

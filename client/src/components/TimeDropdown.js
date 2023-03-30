@@ -40,7 +40,7 @@ const TimeDropdown = () => {
       value={
         dropdownWithCurrent.includes(time)
           ? time
-          : dropdownTimes[dropdownTimes.length - 1]
+          : "8:00 AM"
       }
       handleChange={handleTimeInput}
       options={currentDate === date ? dropdownWithCurrent : dropdownTimes}
