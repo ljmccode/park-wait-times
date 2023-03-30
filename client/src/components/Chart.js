@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -10,7 +9,6 @@ import {
   LinearScale,
   PointElement,
 } from 'chart.js';
-import { useSelector } from 'react-redux';
 import { convertRegularTime } from '../utils/hours';
 
 ChartJS.register(
@@ -23,8 +21,7 @@ ChartJS.register(
   PointElement
 );
 
-const Chart = ({ filteredRide }) => {
-  const { currentRide } = useSelector((store) => store.waitTimes);
+const Chart = ({ filteredRide, ride }) => {
   const labels = filteredRide.map((data) => {
     return convertRegularTime(data.time);
   });
@@ -33,17 +30,6 @@ const Chart = ({ filteredRide }) => {
   });
   const max = Math.max(...waitData) + 10;
   const roundedMax = Math.ceil(max / 10) * 10;
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
-  useEffect(() => {
-    scrollToTop()
-  }, [])
 
   const options = {
     resonsiveness: true,
@@ -59,7 +45,7 @@ const Chart = ({ filteredRide }) => {
     labels: labels,
     datasets: [
       {
-        label: `Wait time for ${currentRide}`,
+        label: `Wait time for ${ride}`,
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
         data: waitData,
